@@ -1,2 +1,1 @@
-# Linear-Regression-C
-# Linear-Regression-C
+# Linear Regression Model in C

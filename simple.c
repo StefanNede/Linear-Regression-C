@@ -81,8 +81,10 @@ struct DataInputs read_data(void) {
             } else {
                 if (onx) {
                     (data_inputs.x_inputs.data)[i] = atof(&c);
+                    // printf("%f,", (data_inputs.x_inputs.data)[i]);
                 } else {
                     (data_inputs.y_inputs.data)[i] = atof(&c);
+                    // printf("%f\n", (data_inputs.y_inputs.data)[i]);
                 }
             }
         }

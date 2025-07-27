@@ -18,9 +18,20 @@
 volatile int n;
 
 // structs
+struct Vector {
+    float* data;
+    int size; 
+};
+
+// TODO: Finish definition of this Matrix struct
+// struct for an nxm matrix
+struct Matrix {
+    int n, m;
+};
+
 struct DataInputs {
-    float* x_inputs;
-    float* y_inputs;
+    struct Vector x_inputs;
+    struct Vector y_inputs;
 };
 
 // Count the number of lines in an input file
@@ -53,8 +64,10 @@ struct DataInputs read_data(void) {
     char c;
     int onx = 1, i = 0; // flag: 1 - on x field of input, 0 - on y field of input
 
-    data_inputs.x_inputs = (float*)malloc(n*sizeof(float));
-    data_inputs.y_inputs = (float*)malloc(n*sizeof(float));
+    data_inputs.x_inputs.size = n;
+    data_inputs.y_inputs.size = n;
+    data_inputs.x_inputs.data = (float*)malloc(n*sizeof(float));
+    data_inputs.y_inputs.data = (float*)malloc(n*sizeof(float));
 
     fptr = fopen("data.txt", "r");
 
@@ -67,9 +80,9 @@ struct DataInputs read_data(void) {
                 onx = 0;
             } else {
                 if (onx) {
-                    (data_inputs.x_inputs)[i] = atof(&c);
+                    (data_inputs.x_inputs.data)[i] = atof(&c);
                 } else {
-                    (data_inputs.y_inputs)[i] = atof(&c);
+                    (data_inputs.y_inputs.data)[i] = atof(&c);
                 }
             }
         }
@@ -102,8 +115,8 @@ int main(void) {
     struct DataInputs data_inputs = read_data();
 
     // Free used memory
-    free(data_inputs.x_inputs);
-    free(data_inputs.y_inputs);
+    free(data_inputs.x_inputs.data);
+    free(data_inputs.y_inputs.data);
 
     return 0;
 }

@@ -14,25 +14,30 @@
     b = (XT*X)^(-1) * XT * y
 */
 
-// GLOBAL variables
+// GLOBALS -------------------------------
 volatile int n;
 
-// structs
+// STRUCTS -------------------------------
+
+// Struct for a size x 1 vector
 struct Vector {
     float* data;
     int size; 
 };
 
-// TODO: Finish definition of this Matrix struct
-// struct for an nxm matrix
+// Struct for an nxm matrix
 struct Matrix {
     int n, m;
+    float* data; // will index into 
 };
 
+// Struct for the 2 vector inputs of x and y values
 struct DataInputs {
     struct Vector x_inputs;
     struct Vector y_inputs;
 };
+
+// FUNCTIONS -------------------------------
 
 // Count the number of lines in an input file
 int count_lines(char *filename) {
@@ -98,7 +103,9 @@ struct DataInputs read_data(void) {
 }
 
 // Invert the 2x2 matrix provided
-void invert_matrix_2by2(void) {};
+void invert_matrix_2by2(float *matrix_values) {
+    return;
+};
 
 // Transpose a matrix
 void tranpose_matrix(void) {};

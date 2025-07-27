@@ -82,6 +82,18 @@ struct DataInputs read_data(void) {
     return data_inputs;
 }
 
+// Invert the 2x2 matrix provided
+void invert_matrix_2by2(void) {};
+
+// Transpose a matrix
+void tranpose_matrix(void) {};
+
+// Calculate XT*X 
+void tranpose_square(void) {};
+
+// Multiply transpose of a matrix by a vector
+void transpose_vector_multiply(void) {};
+
 int main(void) {
     printf("Running Simple Linear Regression on Input from `data.txt`\n");
 

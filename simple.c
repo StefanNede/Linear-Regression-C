@@ -139,13 +139,38 @@ struct Matrix transpose_matrix(struct Matrix X) {
 // Invert the 2x2 matrix provided
 struct Matrix invert_matrix_2by2(struct Matrix X) {
     struct Matrix X_inverse;
+    float a, b, c, d;
+    X_inverse.n = 2;
+    X_inverse.m = 2;
+    X_inverse.data = (float*)malloc(4 * sizeof(float));
+    a = X.data[0];
+    b = X.data[1];
+    c = X.data[2];
+    d = X.data[3];
+
+    // Using formula for inverse
+    float factor = (float) 1 / (a*d - b*c);
+
+    X_inverse.data[0] = factor * d;
+    X_inverse.data[3] = factor * a;
+    X_inverse.data[1] = -1 * factor * b;
+    X_inverse.data[2] = -1 * factor * c;
 
     return X_inverse;
 }
 
 // Calculate X*Y = Z
 struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
-    struct Matrix Z;
+    struct Matrix Z; int i, j;
+    Z.n = X.n; Z.m = Y.m;
+    Z.data = (float*)malloc(Z.n * Z.m * sizeof(float));
+
+    for (i = 0; i < Z.n; i++) {
+        for (j = 0; j < Z.m; j++) {
+            // TODO: multiply row i of X by column j of Y
+
+        }
+    }
     
     return Z;
 }
@@ -178,6 +203,7 @@ int main(void) {
     free(data_inputs.y_inputs.data);
     free(X.data);
     free(X_T.data);
+    free(X_TX.data);
 
     return 0;
 }

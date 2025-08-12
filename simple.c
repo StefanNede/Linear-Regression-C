@@ -26,9 +26,10 @@ struct Vector {
 };
 
 // Struct for an nxm matrix
+// could also implement as a list of pointers 
 struct Matrix {
-    int n, m;
-    float* data; // will index into 
+    int n, m; 
+    float* data; // data[i][j] = data[i*n + m]
 };
 
 // Struct for the 2 vector inputs of x and y values
@@ -102,16 +103,43 @@ struct DataInputs read_data(void) {
     return data_inputs;
 }
 
+// Generate the nx2 X matrix 
+struct Matrix gen_X(struct Vector x_values)  {
+    struct Matrix X; int i;
+
+    X.n = x_values.size;
+    X.m = 2;
+    X.data = (float*)malloc(X.n * X.m * sizeof(float));
+
+    for (i = 0; i < x_values.size; i++) {
+        X.data[2*i] = 1.0;
+        X.data[2*i + 1] = x_values.data[i];
+    }
+
+    return X;
+}
+
 // Invert the 2x2 matrix provided
 void invert_matrix_2by2(float *matrix_values) {
     return;
 };
 
-// Transpose a matrix
-void tranpose_matrix(void) {};
+// Transpose a matrix 
+struct Matrix transpose_matrix(struct Matrix X) {
+    struct Matrix X_T;
+
+    return X_T;
+}
 
 // Calculate XT*X 
-void tranpose_square(void) {};
+struct Matrix tranpose_square(struct Matrix X) {
+    struct Matrix X_TX;
+    struct Matrix X_T = transpose_matrix(X);
+
+    // TODO: Multiplication logic
+    
+    return X_TX;
+}
 
 // Multiply transpose of a matrix by a vector
 void transpose_vector_multiply(void) {};
@@ -123,9 +151,15 @@ int main(void) {
     n = count_lines("data.txt");
     struct DataInputs data_inputs = read_data();
 
+
+    // Perform linear regression
+    struct Matrix X = gen_X(data_inputs.x_inputs);
+    struct Matrix X_T = transpose_matrix(X);
+
     // Free used memory
     free(data_inputs.x_inputs.data);
     free(data_inputs.y_inputs.data);
+    free(X.data);
 
     return 0;
 }

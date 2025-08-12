@@ -126,7 +126,17 @@ void invert_matrix_2by2(float *matrix_values) {
 
 // Transpose a matrix 
 struct Matrix transpose_matrix(struct Matrix X) {
-    struct Matrix X_T;
+    struct Matrix X_T; int n, m;
+
+    X_T.n = X.m; X_T.m = X.n;
+    X_T.data = (float*)malloc(X_T.n * X_T.m * sizeof(float));
+
+    // data[i][j] = data[j][i]
+    for (n = 0; n < X.n; n++) {
+        for (m = 0; m < X.m; m++) {
+            X_T.data[m * X_T.n + n] = X.data[n * X.n + m];
+        }
+    }
 
     return X_T;
 }

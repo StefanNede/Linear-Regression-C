@@ -119,36 +119,42 @@ struct Matrix gen_X(struct Vector x_values)  {
     return X;
 }
 
-// Invert the 2x2 matrix provided
-void invert_matrix_2by2(float *matrix_values) {
-    return;
-};
-
 // Transpose a matrix 
 struct Matrix transpose_matrix(struct Matrix X) {
-    struct Matrix X_T; int n, m;
+    struct Matrix X_T; int i, j;
 
     X_T.n = X.m; X_T.m = X.n;
     X_T.data = (float*)malloc(X_T.n * X_T.m * sizeof(float));
 
     // data[i][j] = data[j][i]
-    for (n = 0; n < X.n; n++) {
-        for (m = 0; m < X.m; m++) {
-            X_T.data[m * X_T.n + n] = X.data[n * X.n + m];
+    for (i = 0; i < X.n; i++) {
+        for (j = 0; j < X.m; j++) {
+            X_T.data[j * X_T.n + i] = X.data[i * X.n + j];
         }
     }
 
     return X_T;
 }
 
-// Calculate XT*X 
-struct Matrix tranpose_square(struct Matrix X) {
-    struct Matrix X_TX;
-    struct Matrix X_T = transpose_matrix(X);
+// Invert the 2x2 matrix provided
+struct Matrix invert_matrix_2by2(struct Matrix X) {
+    struct Matrix X_inverse;
 
-    // TODO: Multiplication logic
+    return X_inverse;
+}
+
+// Calculate X*Y = Z
+struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
+    struct Matrix Z;
     
-    return X_TX;
+    return Z;
+}
+
+// Calculate X*y = z
+struct Vector multiply_matrix_vector(struct Matrix X, struct Vector y) {
+    struct Vector z;
+
+    return z;
 }
 
 // Multiply transpose of a matrix by a vector
@@ -165,11 +171,13 @@ int main(void) {
     // Perform linear regression
     struct Matrix X = gen_X(data_inputs.x_inputs);
     struct Matrix X_T = transpose_matrix(X);
+    struct Matrix X_TX = multiply_matrix_matrix(X_T, X);
 
     // Free used memory
     free(data_inputs.x_inputs.data);
     free(data_inputs.y_inputs.data);
     free(X.data);
+    free(X_T.data);
 
     return 0;
 }

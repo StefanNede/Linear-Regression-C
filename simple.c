@@ -62,7 +62,7 @@ int count_lines(char *filename) {
     }
 
     fclose(fptr);
-    return count;
+    return count+1;
 }
 
 // Read the data input from the csv file
@@ -141,13 +141,13 @@ struct Matrix transpose_matrix(struct Matrix X) {
 // Invert the 2x2 matrix provided
 struct Matrix invert_matrix_2by2(struct Matrix X) {
     struct Matrix X_inverse;
-    float a, b, c, d;
+    float a, b, c, d, determinant;
     X_inverse.n = 2;
     X_inverse.m = 2;
     X_inverse.data = (float*)malloc(4 * sizeof(float));
 
     if (X.n != 2 || X.m != 2) {
-        printf("ERROR in inverting 2x2 matrix. Dimensions of matrix X to invert are not 2x2 but are %d x %d\n", X.n, X.m);
+        printf("ERROR in inverting 2x2 matrix. Dimensions of matrix X to invert are not 2x2 but are %dx%d\n", X.n, X.m);
         return X_inverse;
     }
 
@@ -155,9 +155,15 @@ struct Matrix invert_matrix_2by2(struct Matrix X) {
     b = X.data[1];
     c = X.data[2];
     d = X.data[3];
+    determinant = a*d - b*c;
+
+    if (determinant == 0.0f) {
+        printf("ERROR in inverting 2x2 matrix. Matrix is not invertible - has determinant of 0\n");
+        return X_inverse;
+    }
 
     // Using formula for inverse
-    float factor = (float) 1 / (a*d - b*c);
+    float factor = (float) (1 / determinant);
 
     X_inverse.data[0] = factor * d;
     X_inverse.data[3] = factor * a;
@@ -174,7 +180,7 @@ struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
     Z.data = (float*)malloc(Z.n * Z.m * sizeof(float));
 
     if (X.m != Y.n) {
-        printf("ERROR in matrix-matrix multiplication: Dimensions do not match. Trying to multiply matrix X of dimensions %d x %d, with matrix Y of dimensions %d x %d \n", X.n, X.m, Y.n, Y.m);
+        printf("ERROR in matrix-matrix multiplication: Dimensions do not match. Trying to multiply matrix X of dimensions %dx%d, with matrix Y of dimensions %dx%d\n", X.n, X.m, Y.n, Y.m);
         return Z;
     }
 
@@ -196,13 +202,39 @@ struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
 
 // Calculate X*y = z
 struct Vector multiply_matrix_vector(struct Matrix X, struct Vector y) {
-    struct Vector z;
+    struct Vector z; int i, j; float res;
+    z.size = X.n;
+    z.data = (float*)malloc(sizeof(float) * X.n);
+
+    if (X.m != y.size) {
+        printf("ERROR in matrix vector multiplication. Dimensions do not match. Trying to multiply %dx%d matrix X with %dx1 vector y\n", X.n, X.m, y.size);
+    }
+
+    for (i = 0; i < z.size; i++) {
+        // multiply row i of X by y
+
+        res = 0.0f;
+        for (j = 0; j < z.size; j++) {
+            // printf("%f, %f\n", X.data[0], y.data[j]);
+            res += X.data[i * X.n + j] * y.data[j];
+        }
+
+        z.data[i] = res;
+    }
 
     return z;
 }
 
-// Multiply transpose of a matrix by a vector
-void transpose_vector_multiply(void) {};
+void print_matrix(struct Matrix X) {
+    int i, j;
+    printf("PRINTING MATRIX X:\n");
+    for (i = 0; i < X.n; i++) {
+        for (j = 0; j < X.m; j++) {
+            printf("%f ", X.data[i * X.n + j]);
+        }
+        printf("\n");
+    }
+}
 
 int main(void) {
     printf("Running Simple Linear Regression on Input from `data.txt`\n");
@@ -218,7 +250,13 @@ int main(void) {
     struct Matrix X_TX = multiply_matrix_matrix(X_T, X);
     struct Matrix inverse_X_TX = invert_matrix_2by2(X_TX);
     struct Matrix final_matrix = multiply_matrix_matrix(inverse_X_TX, X_T);
-    // TODO: final step is multiply final_matrix by y vector
+    // Final step is multiply final_matrix by y vector
+    struct Vector res = multiply_matrix_vector(final_matrix, data_inputs.y_inputs);
+
+    // Printing in y = mx + c format, rounding coefficients to 2dp
+    printf("y = %.2fx + %.2f\n", res.data[1], res.data[0]);
+
+    // TODO: PLOTTING THE DATA POINTS AND LINEAR REGRESSION LINE GENERATED
 
     // Free used memory
     free(data_inputs.x_inputs.data);
@@ -228,6 +266,7 @@ int main(void) {
     free(X_TX.data);
     free(inverse_X_TX.data);
     free(final_matrix.data);
+    free(res.data);
 
     return 0;
 }

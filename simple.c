@@ -7,6 +7,8 @@
 #include "pbPlots.h"
 #include "supportLib.h"
 
+#define PLOT_PAD_AMOUNT 2.0
+
 /* VARIABLES with types
     n - int - number of data point pairs to run regression on
     b - 2x1 vector - (c, m)T
@@ -222,6 +224,7 @@ struct Vector multiply_matrix_vector(struct Matrix X, struct Vector y) {
     return z;
 }
 
+// Print out a matrix for debugging purposes
 void print_matrix(struct Matrix X) {
     int i, j;
     printf("PRINTING MATRIX X:\n");
@@ -259,28 +262,55 @@ struct Vector get_min_max(double *data_values, int length) {
     return min_max;
 }
 
+// Pad an array by +- a PLOT_PAD_AMOUNT of the max and min on either side
+double *get_padded_points(double *points, double min, double max, int length, double pad_amount) {
+    double *padded_points;
+    int i;
+
+    padded_points = (double*)malloc(sizeof(double) * (length + 2));
+    padded_points[0] = min - pad_amount;
+
+    for (i = 0; i < length; i++) {
+        padded_points[i+1] = points[i];
+    }
+
+    padded_points[i+1] = max + pad_amount;
+
+    return padded_points;
+}
+
 // Plot the data points and linear regression line generated
 void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
     double c = c_m.data[0];
     double m = c_m.data[1];
 
-    struct Vector min_max = get_min_max(data_inputs.x_inputs.data, data_inputs.x_inputs.size);
-    double min_x_dataset = min_max.data[0];
-    double max_x_dataset = min_max.data[1];
-    free(min_max.data);
+    struct Vector min_max_x = get_min_max(data_inputs.x_inputs.data, data_inputs.x_inputs.size);
+    struct Vector min_max_y = get_min_max(data_inputs.y_inputs.data, data_inputs.y_inputs.size);
+    double min_x_dataset = min_max_x.data[0];
+    double max_x_dataset = min_max_x.data[1];
+    double min_y_dataset = min_max_y.data[0];
+    double max_y_dataset = min_max_y.data[1];
+    free(min_max_x.data);
+    free(min_max_y.data);
 
-    // Generate regression line inputs
-    double xs [] = {min_x_dataset, max_x_dataset};
-	double ys [] = {min_x_dataset * m + c, max_x_dataset * m + c};
+    // Generate regression line inputs -> apply some padding to look nicer
+    double min_x_regression = min_x_dataset - PLOT_PAD_AMOUNT/2;
+    double max_x_regression = max_x_dataset + PLOT_PAD_AMOUNT/2;
+    double xs [] = {min_x_regression, max_x_regression};
+	double ys [] = {min_x_regression * m + c, max_x_regression * m + c};
+
+    // Pad the data inputs to make sure they show up on the plot by adding artificial points
+    double *padded_x_points = get_padded_points(data_inputs.x_inputs.data, min_x_dataset, max_x_dataset, data_inputs.x_inputs.size, PLOT_PAD_AMOUNT);
+    double *padded_y_points = get_padded_points(data_inputs.y_inputs.data, min_y_dataset, max_y_dataset, data_inputs.y_inputs.size, PLOT_PAD_AMOUNT);
 
     ScatterPlotSeries *series = GetDefaultScatterPlotSeriesSettings();
     ScatterPlotSeries *regression_series= GetDefaultScatterPlotSeriesSettings();
 
     // Plot the input data
-    series->xs = data_inputs.x_inputs.data;
-	series->xsLength = data_inputs.x_inputs.size;
-	series->ys = data_inputs.y_inputs.data;
-	series->ysLength = data_inputs.y_inputs.size;
+    series->xs = padded_x_points;
+	series->xsLength = data_inputs.x_inputs.size + 2;
+	series->ys = padded_y_points;
+	series->ysLength = data_inputs.y_inputs.size + 2;
 	series->linearInterpolation = false;
     series->pointType = L"circles";
 	series->pointTypeLength = wcslen(series->pointType);
@@ -299,15 +329,15 @@ void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
 
     // Set axes data
 	ScatterPlotSettings *settings = GetDefaultScatterPlotSettings();
-	settings->width = 600;
-	settings->height = 400;
+	settings->width = 1000;
+	settings->height = 800;
 	settings->autoBoundaries = true;
 	settings->autoPadding = true;
     settings->title = L"Linear Regression";
     settings->titleLength = wcslen(settings->title);
-    settings->xLabel = L"X axis";
+    settings->xLabel = L"Y-axis"; // for some reason these are the wrong way around
     settings->xLabelLength = wcslen(settings->xLabel);
-    settings->yLabel = L"Y axis";
+    settings->yLabel = L"X-axis";
     settings->yLabelLength = wcslen(settings->yLabel);
 
     // Actually generate plot
@@ -323,6 +353,9 @@ void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
 	double *pngdata = ConvertToPNG(&length, canvasReference->image);
 	WriteToFile(pngdata, length, "simple_regression.png");
 	DeleteImage(canvasReference->image);
+
+    free(padded_x_points);
+    free(padded_y_points);
 }
 
 int main(void) {

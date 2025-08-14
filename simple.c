@@ -145,6 +145,12 @@ struct Matrix invert_matrix_2by2(struct Matrix X) {
     X_inverse.n = 2;
     X_inverse.m = 2;
     X_inverse.data = (float*)malloc(4 * sizeof(float));
+
+    if (X.n != 2 || X.m != 2) {
+        printf("ERROR in inverting 2x2 matrix. Dimensions of matrix X to invert are not 2x2 but are %d x %d\n", X.n, X.m);
+        return X_inverse;
+    }
+
     a = X.data[0];
     b = X.data[1];
     c = X.data[2];
@@ -210,6 +216,9 @@ int main(void) {
     struct Matrix X = gen_X(data_inputs.x_inputs);
     struct Matrix X_T = transpose_matrix(X);
     struct Matrix X_TX = multiply_matrix_matrix(X_T, X);
+    struct Matrix inverse_X_TX = invert_matrix_2by2(X_TX);
+    struct Matrix final_matrix = multiply_matrix_matrix(inverse_X_TX, X_T);
+    // TODO: final step is multiply final_matrix by y vector
 
     // Free used memory
     free(data_inputs.x_inputs.data);
@@ -217,6 +226,8 @@ int main(void) {
     free(X.data);
     free(X_T.data);
     free(X_TX.data);
+    free(inverse_X_TX.data);
+    free(final_matrix.data);
 
     return 0;
 }

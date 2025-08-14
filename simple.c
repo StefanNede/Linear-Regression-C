@@ -2,6 +2,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h> 
+#include <string.h> 
 
 /* VARIABLES with types
     n - int - number of data point pairs to run regression on
@@ -161,14 +163,19 @@ struct Matrix invert_matrix_2by2(struct Matrix X) {
 
 // Calculate X*Y = Z
 struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
-    struct Matrix Z; int i, j;
+    struct Matrix Z; int i, j; float res;
     Z.n = X.n; Z.m = Y.m;
     Z.data = (float*)malloc(Z.n * Z.m * sizeof(float));
+
+    if (X.m != Y.n) {
+        printf("ERROR in matrix-matrix multiplication: Dimensions do not match. Trying to multiply matrix X of dimensions %d x %d, with matrix Y of dimensions %d x %d \n", X.n, X.m, Y.n, Y.m);
+        return Z;
+    }
 
     for (i = 0; i < Z.n; i++) {
         for (j = 0; j < Z.m; j++) {
             // TODO: multiply row i of X by column j of Y
-
+            res = 0.0f;
         }
     }
     

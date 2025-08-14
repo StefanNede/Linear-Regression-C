@@ -233,12 +233,41 @@ void print_matrix(struct Matrix X) {
     }
 }
 
-// TODO: PLOTTING THE DATA POINTS AND LINEAR REGRESSION LINE GENERATED
+// Returns (min, max) of data_values list
+struct Vector get_min_max(double *data_values, int length) {
+    struct Vector min_max;
+    double min, max;
+    int i;
+
+    min_max.size = 2;
+    min_max.data = (double*)malloc(sizeof(double) * 2);
+    min = max = data_values[0];
+    
+    for (i = 0; i < length; i++) {
+        if (data_values[i] < min) {
+            min = data_values[i];
+        }
+
+        if (data_values[i] > max)  {
+            max = data_values[i];
+        }
+    }
+
+    min_max.data[0] = min;
+    min_max.data[1] = max;
+
+    return min_max;
+}
+
+// Plot the data points and linear regression line generated
 void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
     double c = c_m.data[0];
     double m = c_m.data[1];
-    double min_x_dataset = 1;
-    double max_x_dataset = 10;
+
+    struct Vector min_max = get_min_max(data_inputs.x_inputs.data, data_inputs.x_inputs.size);
+    double min_x_dataset = min_max.data[0];
+    double max_x_dataset = min_max.data[1];
+    free(min_max.data);
 
     // Generate regression line inputs
     double xs [] = {min_x_dataset, max_x_dataset};
@@ -268,6 +297,7 @@ void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
 	regression_series->lineThickness = 2;
 	regression_series->color = GetGray(0.5);
 
+    // Set axes data
 	ScatterPlotSettings *settings = GetDefaultScatterPlotSettings();
 	settings->width = 600;
 	settings->height = 400;
@@ -280,6 +310,7 @@ void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
     settings->yLabel = L"Y axis";
     settings->yLabelLength = wcslen(settings->yLabel);
 
+    // Actually generate plot
 	ScatterPlotSeries *s [] = {series, regression_series};
 	settings->scatterPlotSeries = s;
 	settings->scatterPlotSeriesLength = 2;

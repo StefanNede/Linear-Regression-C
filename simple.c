@@ -235,12 +235,48 @@ void print_matrix(struct Matrix X) {
 
 // TODO: PLOTTING THE DATA POINTS AND LINEAR REGRESSION LINE GENERATED
 void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
-    RGBABitmapImageReference *canvasReference = CreateRGBABitmapImageReference();
-	DrawScatterPlot(canvasReference, 600, 400, data_inputs.x_inputs.data, 5, data_inputs.y_inputs.data, 5);
+    // RGBABitmapImageReference *canvasReference = CreateRGBABitmapImageReference();
+    // Draw Input Points
+	// DrawScatterPlot(canvasReference, 600, 400, data_inputs.x_inputs.data, data_inputs.x_inputs.size, data_inputs.y_inputs.data, data_inputs.y_inputs.size);
+    // Draw regression line
+   
+    ScatterPlotSeries *series = GetDefaultScatterPlotSeriesSettings();
+    series->xs = data_inputs.x_inputs.data;
+	series->xsLength = data_inputs.x_inputs.size;
+	series->ys = data_inputs.y_inputs.data;
+	series->ysLength = data_inputs.y_inputs.size;
+	series->linearInterpolation = false;
+    series->pointType = L"circles";
+	series->pointTypeLength = wcslen(series->pointType);
+	// series->lineType = L"dashed";
+	// series->lineTypeLength = wcslen(series->lineType);
+	// series->lineThickness = 2;
+	// series->color = GetGray(0.3);
 
+	ScatterPlotSettings *settings = GetDefaultScatterPlotSettings();
+	settings->width = 600;
+	settings->height = 400;
+	settings->autoBoundaries = true;
+	settings->autoPadding = true;
+    settings->title = L"Linear Regression";
+    settings->titleLength = wcslen(settings->title);
+    settings->xLabel = L"X axis";
+    settings->xLabelLength = wcslen(settings->xLabel);
+    settings->yLabel = L"Y axis";
+    settings->yLabelLength = wcslen(settings->yLabel);
+
+	ScatterPlotSeries *s [] = {series};
+	settings->scatterPlotSeries = s;
+	settings->scatterPlotSeriesLength = 1;
+
+    RGBABitmapImageReference *canvasReference= CreateRGBABitmapImageReference();
+    DrawScatterPlotFromSettings(canvasReference, settings);
+
+
+    // Convert to PNG file and save it 
 	size_t length;
 	double *pngdata = ConvertToPNG(&length, canvasReference->image);
-	WriteToFile(pngdata, length, "example1.png");
+	WriteToFile(pngdata, length, "simple_regression.png");
 	DeleteImage(canvasReference->image);
 }
 

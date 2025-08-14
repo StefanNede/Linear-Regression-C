@@ -163,7 +163,7 @@ struct Matrix invert_matrix_2by2(struct Matrix X) {
 
 // Calculate X*Y = Z
 struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
-    struct Matrix Z; int i, j; float res;
+    struct Matrix Z; int i, j, k; float res;
     Z.n = X.n; Z.m = Y.m;
     Z.data = (float*)malloc(Z.n * Z.m * sizeof(float));
 
@@ -174,8 +174,14 @@ struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
 
     for (i = 0; i < Z.n; i++) {
         for (j = 0; j < Z.m; j++) {
-            // TODO: multiply row i of X by column j of Y
+            // multiply row i of X by column j of Y
+
             res = 0.0f;
+            for (k = 0; k < Z.m; k++) {
+                res += X.data[i * X.n + k] * Y.data[k * Y.n + j];
+            }
+
+            Z.data[i * Z.n + j] = res;
         }
     }
     

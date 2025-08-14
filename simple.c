@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <errno.h> 
 #include <string.h> 
+#include "pbPlots.h"
+#include "supportLib.h"
 
 /* VARIABLES with types
     n - int - number of data point pairs to run regression on
@@ -231,6 +233,17 @@ void print_matrix(struct Matrix X) {
     }
 }
 
+// TODO: PLOTTING THE DATA POINTS AND LINEAR REGRESSION LINE GENERATED
+void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
+    RGBABitmapImageReference *canvasReference = CreateRGBABitmapImageReference();
+	DrawScatterPlot(canvasReference, 600, 400, data_inputs.x_inputs.data, 5, data_inputs.y_inputs.data, 5);
+
+	size_t length;
+	double *pngdata = ConvertToPNG(&length, canvasReference->image);
+	WriteToFile(pngdata, length, "example1.png");
+	DeleteImage(canvasReference->image);
+}
+
 int main(void) {
     printf("Running Simple Linear Regression on Input from `data.txt`\n");
 
@@ -239,7 +252,7 @@ int main(void) {
     struct DataInputs data_inputs = read_data();
 
 
-    // Perform linear regression
+    // PERFORM SIMPLE LINEAR REGRESSION ===========
     struct Matrix X = gen_X(data_inputs.x_inputs);
     struct Matrix X_T = transpose_matrix(X);
     struct Matrix X_TX = multiply_matrix_matrix(X_T, X);
@@ -248,10 +261,10 @@ int main(void) {
     // Final step is multiply final_matrix by y vector
     struct Vector res = multiply_matrix_vector(final_matrix, data_inputs.y_inputs);
 
+    // OUTPUT RESULTS ===========
     // Printing in y = mx + c format, rounding coefficients to 2dp
     printf("y = %.2fx + %.2f\n", res.data[1], res.data[0]);
-
-    // TODO: PLOTTING THE DATA POINTS AND LINEAR REGRESSION LINE GENERATED
+    plot_results(data_inputs, res);
 
     // Free used memory
     free(data_inputs.x_inputs.data);

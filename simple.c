@@ -235,9 +235,19 @@ void print_matrix(struct Matrix X) {
 
 // TODO: PLOTTING THE DATA POINTS AND LINEAR REGRESSION LINE GENERATED
 void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
+    double c = c_m.data[0];
+    double m = c_m.data[1];
+    double min_x_dataset = 1;
+    double max_x_dataset = 10;
+
+    // Generate regression line inputs
+    double xs [] = {min_x_dataset, max_x_dataset};
+	double ys [] = {min_x_dataset * m + c, max_x_dataset * m + c};
+
     ScatterPlotSeries *series = GetDefaultScatterPlotSeriesSettings();
     ScatterPlotSeries *regression_series= GetDefaultScatterPlotSeriesSettings();
 
+    // Plot the input data
     series->xs = data_inputs.x_inputs.data;
 	series->xsLength = data_inputs.x_inputs.size;
 	series->ys = data_inputs.y_inputs.data;
@@ -247,10 +257,11 @@ void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
 	series->pointTypeLength = wcslen(series->pointType);
 	series->color = GetBlack();
 
-    regression_series->xs = data_inputs.x_inputs.data;
-	regression_series->xsLength = data_inputs.x_inputs.size;
-	regression_series->ys = data_inputs.y_inputs.data;
-	regression_series->ysLength = data_inputs.y_inputs.size;
+    // Plot the regression line
+    regression_series->xs = xs;
+	regression_series->xsLength = 2;
+	regression_series->ys = ys;
+	regression_series->ysLength = 2;
 	regression_series->linearInterpolation = true;
 	regression_series->lineType = L"dashed";
 	regression_series->lineTypeLength = wcslen(regression_series->lineType);

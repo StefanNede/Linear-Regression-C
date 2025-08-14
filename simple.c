@@ -2,8 +2,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <errno.h> 
 #include <string.h> 
+#include "simple.h"
 #include "pbPlots.h"
 #include "supportLib.h"
 
@@ -22,27 +22,6 @@
 
 // GLOBALS -------------------------------
 volatile int n;
-
-// STRUCTS -------------------------------
-
-// Struct for a size x 1 vector
-struct Vector {
-    double* data;
-    int size; 
-};
-
-// Struct for an nxm matrix
-// could also implement as a list of pointers 
-struct Matrix {
-    int n, m; 
-    double* data; // data[i][j] = data[i*n + m]
-};
-
-// Struct for the 2 vector inputs of x and y values
-struct DataInputs {
-    struct Vector x_inputs;
-    struct Vector y_inputs;
-};
 
 // FUNCTIONS -------------------------------
 
@@ -70,9 +49,9 @@ int count_lines(char *filename) {
 }
 
 // Read the data input from the csv file
-struct DataInputs read_data(void) {
+DataInputs read_data(void) {
     FILE *fptr;  
-    struct DataInputs data_inputs;
+    DataInputs data_inputs;
     char c, line[100];
     int onx = 1, i = 0; // flag: 1 - on x field of input, 0 - on y field of input
     double x, y;
@@ -104,8 +83,8 @@ struct DataInputs read_data(void) {
 }
 
 // Generate the nx2 X matrix 
-struct Matrix gen_X(struct Vector x_values)  {
-    struct Matrix X; int i;
+Matrix gen_X(Vector x_values)  {
+    Matrix X; int i;
 
     X.n = x_values.size;
     X.m = 2;
@@ -120,8 +99,8 @@ struct Matrix gen_X(struct Vector x_values)  {
 }
 
 // Transpose a matrix 
-struct Matrix transpose_matrix(struct Matrix X) {
-    struct Matrix X_T; int i, j;
+Matrix transpose_matrix(Matrix X) {
+    Matrix X_T; int i, j;
 
     X_T.n = X.m; X_T.m = X.n;
     X_T.data = (double*)malloc(X_T.n * X_T.m * sizeof(double));
@@ -137,8 +116,8 @@ struct Matrix transpose_matrix(struct Matrix X) {
 }
 
 // Invert the 2x2 matrix provided
-struct Matrix invert_matrix_2by2(struct Matrix X) {
-    struct Matrix X_inverse;
+Matrix invert_matrix_2by2(Matrix X) {
+    Matrix X_inverse;
     double a, b, c, d, determinant;
     X_inverse.n = 2;
     X_inverse.m = 2;
@@ -172,8 +151,8 @@ struct Matrix invert_matrix_2by2(struct Matrix X) {
 }
 
 // Calculate X*Y = Z
-struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
-    struct Matrix Z; int i, j, k; double res;
+Matrix multiply_matrix_matrix(Matrix X, Matrix Y) {
+    Matrix Z; int i, j, k; double res;
     Z.n = X.n; Z.m = Y.m;
     Z.data = (double*)malloc(Z.n * Z.m * sizeof(double));
 
@@ -200,8 +179,8 @@ struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
 }
 
 // Calculate X*y = z
-struct Vector multiply_matrix_vector(struct Matrix X, struct Vector y) {
-    struct Vector z; int i, j; double res;
+Vector multiply_matrix_vector(Matrix X, Vector y) {
+    Vector z; int i, j; double res;
     z.size = X.n;
     z.data = (double*)malloc(sizeof(double) * X.n);
 
@@ -225,7 +204,7 @@ struct Vector multiply_matrix_vector(struct Matrix X, struct Vector y) {
 }
 
 // Print out a matrix for debugging purposes
-void print_matrix(struct Matrix X) {
+void print_matrix(Matrix X) {
     int i, j;
     printf("PRINTING MATRIX X:\n");
     for (i = 0; i < X.n; i++) {
@@ -237,8 +216,8 @@ void print_matrix(struct Matrix X) {
 }
 
 // Returns (min, max) of data_values list
-struct Vector get_min_max(double *data_values, int length) {
-    struct Vector min_max;
+Vector get_min_max(double *data_values, int length) {
+    Vector min_max;
     double min, max;
     int i;
 
@@ -280,12 +259,12 @@ double *get_padded_points(double *points, double min, double max, int length, do
 }
 
 // Plot the data points and linear regression line generated
-void plot_results(struct DataInputs data_inputs, struct Vector c_m) {
+void plot_results(DataInputs data_inputs, Vector c_m) {
     double c = c_m.data[0];
     double m = c_m.data[1];
 
-    struct Vector min_max_x = get_min_max(data_inputs.x_inputs.data, data_inputs.x_inputs.size);
-    struct Vector min_max_y = get_min_max(data_inputs.y_inputs.data, data_inputs.y_inputs.size);
+    Vector min_max_x = get_min_max(data_inputs.x_inputs.data, data_inputs.x_inputs.size);
+    Vector min_max_y = get_min_max(data_inputs.y_inputs.data, data_inputs.y_inputs.size);
     double min_x_dataset = min_max_x.data[0];
     double max_x_dataset = min_max_x.data[1];
     double min_y_dataset = min_max_y.data[0];
@@ -363,17 +342,17 @@ int main(void) {
 
     // Loading in data 
     n = count_lines("data.txt");
-    struct DataInputs data_inputs = read_data();
+    DataInputs data_inputs = read_data();
 
 
     // PERFORM SIMPLE LINEAR REGRESSION ===========
-    struct Matrix X = gen_X(data_inputs.x_inputs);
-    struct Matrix X_T = transpose_matrix(X);
-    struct Matrix X_TX = multiply_matrix_matrix(X_T, X);
-    struct Matrix inverse_X_TX = invert_matrix_2by2(X_TX);
-    struct Matrix final_matrix = multiply_matrix_matrix(inverse_X_TX, X_T);
+    Matrix X = gen_X(data_inputs.x_inputs);
+    Matrix X_T = transpose_matrix(X);
+    Matrix X_TX = multiply_matrix_matrix(X_T, X);
+    Matrix inverse_X_TX = invert_matrix_2by2(X_TX);
+    Matrix final_matrix = multiply_matrix_matrix(inverse_X_TX, X_T);
     // Final step is multiply final_matrix by y vector
-    struct Vector res = multiply_matrix_vector(final_matrix, data_inputs.y_inputs);
+    Vector res = multiply_matrix_vector(final_matrix, data_inputs.y_inputs);
 
     // OUTPUT RESULTS ===========
     // Printing in y = mx + c format, rounding coefficients to 2dp

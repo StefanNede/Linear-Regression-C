@@ -13,7 +13,7 @@
 */
 
 /* NORMAL EQUATIONS solution (solve for b)
-    b = (XT*X)^(-1) * XT * y
+    b = (X_T*X)^(-1) * X_T * y
 */
 
 // GLOBALS -------------------------------

@@ -66,6 +66,7 @@ int count_lines(char *filename) {
 }
 
 // Read the data input from the csv file
+// TODO: FIX THIS TO BE ABLE TO TAKE DECIMAL POINT NUMBERS AND MORE THAN 1 CHARACTER LONG NUMBERS
 struct DataInputs read_data(void) {
     FILE *fptr;  
     struct DataInputs data_inputs;
@@ -131,7 +132,7 @@ struct Matrix transpose_matrix(struct Matrix X) {
     // data[i][j] = data[j][i]
     for (i = 0; i < X.n; i++) {
         for (j = 0; j < X.m; j++) {
-            X_T.data[j * X_T.n + i] = X.data[i * X.n + j];
+            X_T.data[j * X_T.m + i] = X.data[i * X.m + j];
         }
     }
 
@@ -190,10 +191,10 @@ struct Matrix multiply_matrix_matrix(struct Matrix X, struct Matrix Y) {
 
             res = 0.0f;
             for (k = 0; k < Z.m; k++) {
-                res += X.data[i * X.n + k] * Y.data[k * Y.n + j];
+                res += X.data[i * X.m + k] * Y.data[k * Y.m + j];
             }
 
-            Z.data[i * Z.n + j] = res;
+            Z.data[i * Z.m + j] = res;
         }
     }
     
@@ -216,7 +217,7 @@ struct Vector multiply_matrix_vector(struct Matrix X, struct Vector y) {
         res = 0.0f;
         for (j = 0; j < z.size; j++) {
             // printf("%f, %f\n", X.data[0], y.data[j]);
-            res += X.data[i * X.n + j] * y.data[j];
+            res += X.data[i * X.m + j] * y.data[j];
         }
 
         z.data[i] = res;
@@ -230,7 +231,7 @@ void print_matrix(struct Matrix X) {
     printf("PRINTING MATRIX X:\n");
     for (i = 0; i < X.n; i++) {
         for (j = 0; j < X.m; j++) {
-            printf("%f ", X.data[i * X.n + j]);
+            printf("%f ", X.data[i * X.m + j]);
         }
         printf("\n");
     }

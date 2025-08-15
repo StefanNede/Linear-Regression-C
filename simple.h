@@ -45,3 +45,4 @@ Vector get_min_max(double *data_values, int length);
 
 void print_matrix(Matrix X);
 void plot_results(DataInputs data_inputs, Vector c_m);
+void simple_regression(void);

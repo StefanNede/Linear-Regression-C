@@ -337,7 +337,7 @@ void plot_results(DataInputs data_inputs, Vector c_m) {
     free(padded_y_points);
 }
 
-int main(void) {
+void simple_regression(void) {
     printf("Running Simple Linear Regression on Input from `data.txt`\n");
 
     // Loading in data 
@@ -368,6 +368,9 @@ int main(void) {
     free(inverse_X_TX.data);
     free(final_matrix.data);
     free(res.data);
+}
 
+int main(void) {
+    simple_regression();
     return 0;
 }

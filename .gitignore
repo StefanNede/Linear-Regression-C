@@ -1,3 +1,6 @@
 main.dSYM/
 multi.dSYM/
 simple.dSYM/
+
+# no object files
+*.o

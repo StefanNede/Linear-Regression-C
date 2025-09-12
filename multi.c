@@ -77,15 +77,14 @@ DataInputs read_data(void) {
     if (fptr != NULL) {
 
         while (fgets(line, sizeof(line), fptr)) {
-            char *line_ptr = line;
-            int scanned_count = 0;
-            double value;
+            char *line_ptr = line; // pointer to line we are currently on 
+            int scanned_count = 0; // the number of characters successfully scanned in the line - how far we've advanced in the string
+            double value; // last value scanned 
 
             // Loop p times to extract p values
             // first value is the dependent y variable, and the rest are the explanatory variables
             for (int i = 0; i < p; i++) {
-                if (sscanf(line_ptr, "%lf%*[, \t]%n", &value, &scanned_count) == 1) {
-                    // Store the value
+                if (sscanf(line_ptr, "%lf%*[, \t]%n", &value, &scanned_count) == 1) { // scan the next double and consume a comma, storing number of chars successfully scanned so far into scanned count
                     if (i == 0) {
                         // First value is the dependent variable and each row of matrix X starts with a 1 
                         data_inputs.y_inputs.data[line_index] = value;

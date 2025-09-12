@@ -65,7 +65,8 @@ DataInputs read_data(void) {
 
     if (fptr != NULL) {
         while (fgets(line, sizeof(line), fptr)) {
-            if (sscanf(line, "%lf,%lf", &x, &y) == 2) {
+            // Input is in format 'y,x' as y is dependent and x explanatory
+            if (sscanf(line, "%lf,%lf", &y, &x) == 2) {
                 data_inputs.x_inputs.data[i] = x;
                 data_inputs.y_inputs.data[i] = y;
                 i++;

@@ -132,11 +132,13 @@ void multiple_regression(void) {
     printf("Number of datapoints: %d\n", n);
     printf("Number of dimensions: %d\n", p);
 
+    // Matrix X = data_inputs.x_inputs
     DataInputs data_inputs = read_data();
-    print_matrix(data_inputs.x_inputs);
+    // print_matrix(data_inputs.x_inputs);
+    
+    // TODO: PERFORM QR FACTORISATION OF X ===========
 
-
-    // PERFORM SIMPLE LINEAR REGRESSION ===========
+    // TODO: PERFORM MULTIPLE LINEAR REGRESSION ===========
 
     // Free used memory
     free(data_inputs.x_inputs.data);

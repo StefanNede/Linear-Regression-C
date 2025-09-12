@@ -73,7 +73,6 @@ DataInputs read_data(void) {
 
     fptr = fopen("data.txt", "r");
 
-    // TODO: NEED TO FIX THIS
     if (fptr != NULL) {
 
         while (fgets(line, sizeof(line), fptr)) {
@@ -88,12 +87,10 @@ DataInputs read_data(void) {
                     if (i == 0) {
                         // First value is the dependent variable and each row of matrix X starts with a 1 
                         data_inputs.y_inputs.data[line_index] = value;
-                        // TODO: INDEX INTO THIS CORRECTLY
-                        data_inputs.x_inputs.data[line_index] = 1.0f;
+                        data_inputs.x_inputs.data[line_index*p] = 1.0f;
                     } else {
                         // Store values into the matrix X 
-                        // TODO: INDEX INTO THIS CORRECTLY
-                        data_inputs.x_inputs.data[line_index] = value;
+                        data_inputs.x_inputs.data[line_index*p + i] = value;
                     }
 
                     // Advance the pointer for the next scan
@@ -115,6 +112,18 @@ DataInputs read_data(void) {
     return data_inputs;
 }
 
+// Print out a matrix for debugging purposes
+void print_matrix(Matrix X) {
+    int i, j;
+    printf("PRINTING MATRIX X:\n");
+    for (i = 0; i < X.n; i++) {
+        for (j = 0; j < X.m; j++) {
+            printf("%lf ", X.data[i * X.m + j]);
+        }
+        printf("\n");
+    }
+}
+
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
 
@@ -124,6 +133,7 @@ void multiple_regression(void) {
     printf("Number of dimensions: %d\n", p);
 
     DataInputs data_inputs = read_data();
+    print_matrix(data_inputs.x_inputs);
 
 
     // PERFORM SIMPLE LINEAR REGRESSION ===========

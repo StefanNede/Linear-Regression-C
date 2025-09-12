@@ -38,6 +38,7 @@ struct QR {
     struct Matrix R;
 };
 
+// TODO: ADD ALL NEW FUNCTIONS HERE ONCE FINISHED 
 // FUNCTION DECLARATIONS
 void set_lines_dimensions(char *filename);
 DataInputs read_data(void);

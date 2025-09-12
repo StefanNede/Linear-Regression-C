@@ -5,15 +5,15 @@
 
 /* VARIABLES with types
     p - int - number of dimensions we are running regression on
-    n - int - number of data point tuples -> 1 dependent variable and p explanatory ones
-    b - (p+1)x1 vector - (b_0, b_1, ... , b_p)^T -> the coefficients for the regression plane
+    n - int - number of data point tuples -> 1 dependent variable and p-1 explanatory ones
+    b - px1 vector - (b_0, b_1, ... , b_p-1)^T -> the coefficients for the regression plane
     y - nx1 vector - dependent variable inputs (y_1, y_2, ..., y_n)^T
-    X - nx(p+1) matrix - each row consists of 1 followed by the p explanatory variable values 
+    X - nxp matrix - each row consists of 1 followed by the p-1 explanatory variable values 
 */
 
 /* QR FACTORISATION of X => X = QR
-    Q - nx(p+1) matrix - orthonormal columns
-    R - (p+1)x(p+1) matrix - upper triangular and square
+    Q - nxp matrix - orthonormal columns
+    R - pxp matrix - upper triangular and square
 */
 
 /* NORMAL EQUATIONS (solve for b), applying QR factorisation to X
@@ -26,7 +26,8 @@ volatile int n, p;
 
 // FUNCTIONS -------------------------------
 
-// Count the number of lines in an input file
+// Count the number of lines in an input file 
+// and the number of dimensions we are working with
 void set_lines_dimensions(char *filename) {
     FILE *fptr; 
     char c;
@@ -61,16 +62,18 @@ DataInputs read_data(void) {
     FILE *fptr;  
     DataInputs data_inputs;
     char c, line[1000];
-    int onx = 1, i = 0; // flag: 1 - on x field of input, 0 - on y field of input
+    int i = 0;
     double x, y;
 
     data_inputs.x_inputs.n= n;
+    data_inputs.x_inputs.m= p;
     data_inputs.y_inputs.size = n;
-    data_inputs.x_inputs.data = (double*)malloc(n*sizeof(double));
+    data_inputs.x_inputs.data = (double*)malloc(n*p*sizeof(double));
     data_inputs.y_inputs.data = (double*)malloc(n*sizeof(double));
 
     fptr = fopen("data.txt", "r");
 
+    // TODO: NEED TO FIX THIS
     if (fptr != NULL) {
         while (fgets(line, sizeof(line), fptr)) {
             if (sscanf(line, "%lf,%lf", &x, &y) == 2) {

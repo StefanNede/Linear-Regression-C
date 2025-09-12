@@ -31,3 +31,6 @@ struct DataInputs {
 
 // FUNCTION DECLARATIONS
 void set_lines_dimensions(char *filename);
+DataInputs read_data(void);
+Vector get_column(Matrix X, int i);
+void multiple_regression(void);

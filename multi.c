@@ -124,6 +124,31 @@ void print_matrix(Matrix X) {
     }
 }
 
+void print_vector(Vector x) {
+    int i;
+    printf("PRINTING VECTOR x:\n");
+    for (i = 0; i < x.size; i++) {
+        printf("%lf ", x.data[i]);
+    }
+    printf("\n");
+}
+
+// Return column i of matrix X
+Vector get_column(Matrix X, int i) {
+    Vector res;
+    int j;
+    res.size = X.n;
+    res.data = (double*)malloc(res.size * sizeof(double));
+    
+    for (j = 0; j < X.n; j++) {
+        res.data[j] = X.data[j * X.m + i];
+    }
+
+    return res;
+}
+
+
+
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
 
@@ -134,7 +159,7 @@ void multiple_regression(void) {
 
     // Matrix X = data_inputs.x_inputs
     DataInputs data_inputs = read_data();
-    // print_matrix(data_inputs.x_inputs);
+    print_matrix(data_inputs.x_inputs);
     
     // TODO: PERFORM QR FACTORISATION OF X ===========
 
@@ -143,6 +168,8 @@ void multiple_regression(void) {
     // Free used memory
     free(data_inputs.x_inputs.data);
     free(data_inputs.y_inputs.data);
+    free(x.data);
+    free(y.data);
 }
 
 int main(void) {

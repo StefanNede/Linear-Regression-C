@@ -62,7 +62,7 @@ DataInputs read_data(void) {
     FILE *fptr;  
     DataInputs data_inputs;
     char c, line[1000];
-    int i = 0;
+    int line_index = 0;
     double x, y;
 
     data_inputs.x_inputs.n= n;
@@ -75,15 +75,38 @@ DataInputs read_data(void) {
 
     // TODO: NEED TO FIX THIS
     if (fptr != NULL) {
+
         while (fgets(line, sizeof(line), fptr)) {
-            if (sscanf(line, "%lf,%lf", &x, &y) == 2) {
-                data_inputs.x_inputs.data[i] = x;
-                data_inputs.y_inputs.data[i] = y;
-                i++;
-            } else {
-                fprintf(stderr, "Invalid line format: %s", line);
+            char *line_ptr = line;
+            int scanned_count = 0;
+            double value;
+
+            // Loop p times to extract p values
+            // first value is the dependent y variable, and the rest are the explanatory variables
+            for (int i = 0; i < p; i++) {
+                if (sscanf(line_ptr, "%lf%*[, \t]%n", &value, &scanned_count) == 1) {
+                    // Store the value
+                    if (i == 0) {
+                        // First value is the dependent variable and each row of matrix X starts with a 1 
+                        data_inputs.y_inputs.data[line_index] = value;
+                        // TODO: INDEX INTO THIS CORRECTLY
+                        data_inputs.x_inputs.data[line_index] = 1.0f;
+                    } else {
+                        // Store values into the matrix X 
+                        // TODO: INDEX INTO THIS CORRECTLY
+                        data_inputs.x_inputs.data[line_index] = value;
+                    }
+
+                    // Advance the pointer for the next scan
+                    line_ptr += scanned_count;
+                } else {
+                    fprintf(stderr, "Invalid line format at line %d: %s\n", line_index+1, line);
+                    break;
+                }
             }
+            line_index++;
         }
+
     } else {
         printf("Not able to open the file: `data.txt`\n");
     }
@@ -101,14 +124,14 @@ void multiple_regression(void) {
     printf("Number of datapoints: %d\n", n);
     printf("Number of dimensions: %d\n", p);
 
-    // DataInputs data_inputs = read_data();
+    DataInputs data_inputs = read_data();
 
 
     // PERFORM SIMPLE LINEAR REGRESSION ===========
 
     // Free used memory
-    // free(data_inputs.x_inputs.data);
-    // free(data_inputs.y_inputs.data);
+    free(data_inputs.x_inputs.data);
+    free(data_inputs.y_inputs.data);
 }
 
 int main(void) {

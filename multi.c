@@ -219,6 +219,10 @@ QR QR_factorise(Matrix X) {
     return res;
 }
 
+// TODO: put this comment somewhere as a 'for further work' comment
+// Note: we are using classical Gram Schmidt here which is potentially numerically unstable 
+// -> if encounter issues switch to the modified gram schmidt method for better stability  :) 
+
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
 

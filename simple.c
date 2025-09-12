@@ -11,9 +11,9 @@
 
 /* VARIABLES with types
     n - int - number of data point pairs to run regression on
-    b - 2x1 vector - (c, m)T
-    y - nx1 vector - inputs (y_1, y_2, ..., y_n)T
-    X - nx2 matrix - 1st column is all 1s and 2nd column is nx1 vector of inputs (x_1, x_2, ..., x_n)T
+    b - 2x1 vector - (c, m)^T -> the coefficients for the regression line
+    y - nx1 vector - dependent inputs (y_1, y_2, ..., y_n)^T
+    X - nx2 matrix - 1st column is all 1s and 2nd column is nx1 vector of inputs (x_1, x_2, ..., x_n)^T
 */
 
 /* NORMAL EQUATIONS solution (solve for b)

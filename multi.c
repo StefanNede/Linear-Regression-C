@@ -169,15 +169,23 @@ double multiply_vector_vector(Vector x, Vector y) {
     return res;
 }
 
+// I will only use these functionalities in place and so the following sometimes take pass by reference (pointer) fields
+
 // TODO: COMPLETE THIS 
 // x = x - y
-void subtract_vector_vector_inplace(Vector x, Vector y) {
+void subtract_vector_vector_inplace(Vector *x, Vector y) {
     return;
 }
 
 // TODO: COMPLETE THIS
 // x = r * x
-void multiply_scalar_vector_inplace(double scalar, Vector x) {
+void multiply_scalar_vector_inplace(double scalar, Vector *x) {
+    return;
+}
+
+// TODO: COMPLETE THIS
+// X_i = col where i = col_idx
+void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx) {
     return;
 }
 
@@ -199,29 +207,38 @@ QR QR_factorise(Matrix X) {
 
     // loop over the columns of X
     for (i = 0; i < X.m; i++) {
-        // TODO: think of a way to make this Q_i reference the correct positions in the Q matrix 
-        // TODO: otherwise just make an insert vector into matrix function that inserts Q_i into column i of matrix Q
-        Vector Q_i;
+        // generate corresponding orthonormal column of Q and necessary entries in R
         Vector X_i = get_column(X, i);
-        // magnitude = get_magnitude(X_i);
-        // generate corresponding orthonormal column of Q
+        Vector Q_i = get_column(X, i); // Q_i = X_i
+
         for (j = 0; j < i; j++) {
             Vector Q_j = get_column(res.Q, j);
+            // r_ji = Q_j • X_i
             double r_ji = multiply_vector_vector(Q_j, X_i);
             // TODO: save r_ji to matrix R
-            // TODO: subtract r_ij * Q_j from Q_i
+
+            // Q_i = Q_i - r_ji * Q_j
+            multiply_scalar_vector_inplace(r_ji, &Q_j);
+            subtract_vector_vector_inplace(&Q_i, Q_j);
         }
+
+        // Q_i = Q_i / |Q_i|
+        // r_ii = |Q_i|
         double r_ii = get_magnitude(Q_i);
         // TODO: save r_ii to matrix R
-        // TODO: Divide Q_i by r_jj
+
+        multiply_scalar_vector_inplace(1/r_ii, &Q_i);
+        // Move Q_i back into the corresponding column of the Q matrix 
+        copy_column_to_matrix_inplace(Q_i, &res.Q, i);
     }
 
     return res;
 }
 
-// TODO: put this comment somewhere as a 'for further work' comment
-// Note: we are using classical Gram Schmidt here which is potentially numerically unstable 
-// -> if encounter issues switch to the modified gram schmidt method for better stability  :) 
+/* TODO: put this comment somewhere as a 'for further work' comment
+   Note: we are using classical Gram Schmidt here which is potentially numerically unstable 
+    -> if encounter issues switch to the modified gram schmidt method for better stability  :) 
+*/
 
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
@@ -235,7 +252,7 @@ void multiple_regression(void) {
     DataInputs data_inputs = read_data();
     print_matrix(data_inputs.x_inputs);
     
-    // TODO: PERFORM QR FACTORISATION OF X ===========
+    // PERFORM QR FACTORISATION OF X ===========
     QR qr = QR_factorise(data_inputs.x_inputs);
 
     // TODO: PERFORM MULTIPLE LINEAR REGRESSION ===========

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "multi.h"
 
 /* VARIABLES with types
@@ -147,7 +148,76 @@ Vector get_column(Matrix X, int i) {
     return res;
 }
 
+// Return the magnitude of vector x
+double get_magnitude(Vector x) {
+    int i;
+    double mag = 0.0f;
 
+    for (i = 0; i < x.size; i++) {
+        mag += x.data[i] * x.data[i];
+    }
+    mag = pow(mag, 1.0 / x.size);
+
+    return mag;
+}
+
+// TODO: COMPLETE THIS
+// res = x_T * y
+double multiply_vector_vector(Vector x, Vector y) {
+    double res = 0.0f;
+
+    return res;
+}
+
+// TODO: COMPLETE THIS 
+// x = x - y
+void subtract_vector_vector_inplace(Vector x, Vector y) {
+    return;
+}
+
+// TODO: COMPLETE THIS
+// x = r * x
+void multiply_scalar_vector_inplace(double scalar, Vector x) {
+    return;
+}
+
+// QR factorisation via Classical Gram-Schmidt
+QR QR_factorise(Matrix X) {
+    QR res;
+    double magnitude;
+
+    res.Q.n = X.n;
+    res.Q.m = X.m;
+    res.R.n = X.m;
+    res.R.m = X.m;
+    res.Q.data = (double*)malloc(res.Q.n*res.Q.m*sizeof(double));
+    res.R.data = (double*)malloc(res.R.n*res.R.m*sizeof(double));
+
+    // printf("%d x %d, %d x %d", res.Q.n, res.Q.m, res.R.n, res.R.m);
+
+    int i, j;
+
+    // loop over the columns of X
+    for (i = 0; i < X.m; i++) {
+        // TODO: think of a way to make this Q_i reference the correct positions in the Q matrix 
+        // TODO: otherwise just make an insert vector into matrix function that inserts Q_i into column i of matrix Q
+        Vector Q_i;
+        Vector X_i = get_column(X, i);
+        // magnitude = get_magnitude(X_i);
+        // generate corresponding orthonormal column of Q
+        for (j = 0; j < i; j++) {
+            Vector Q_j = get_column(res.Q, j);
+            double r_ji = multiply_vector_vector(Q_j, X_i);
+            // TODO: save r_ji to matrix R
+            // TODO: subtract r_ij * Q_j from Q_i
+        }
+        double r_ii = get_magnitude(Q_i);
+        // TODO: save r_ii to matrix R
+        // TODO: Divide Q_i by r_jj
+    }
+
+    return res;
+}
 
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
@@ -162,14 +232,13 @@ void multiple_regression(void) {
     print_matrix(data_inputs.x_inputs);
     
     // TODO: PERFORM QR FACTORISATION OF X ===========
+    QR qr = QR_factorise(data_inputs.x_inputs);
 
     // TODO: PERFORM MULTIPLE LINEAR REGRESSION ===========
 
     // Free used memory
     free(data_inputs.x_inputs.data);
     free(data_inputs.y_inputs.data);
-    free(x.data);
-    free(y.data);
 }
 
 int main(void) {

@@ -10,6 +10,9 @@ typedef struct Matrix Matrix;
 struct DataInputs;
 typedef struct DataInputs DataInputs;
 
+struct QR;
+typedef struct QR QR;
+
 // Struct for a size x 1 vector
 struct Vector {
     double* data;
@@ -27,6 +30,12 @@ struct Matrix {
 struct DataInputs {
     struct Matrix x_inputs;
     struct Vector y_inputs;
+};
+
+// Struct for the 2 matrix output of QR factorisation of matrix X
+struct QR {
+    struct Matrix Q;
+    struct Matrix R;
 };
 
 // FUNCTION DECLARATIONS

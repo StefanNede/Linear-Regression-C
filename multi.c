@@ -183,6 +183,17 @@ double multiply_vector_vector(Vector x, Vector y) {
 // TODO: COMPLETE THIS 
 // x = x - y
 void subtract_vector_vector_inplace(Vector *x, Vector y) {
+    int i;
+
+    if (x->size != y.size) {
+        printf("ERROR in subtracting 2 vectors. Dimensions of vector x is %dx1 and of vector y is %dx1\n", x->size, y.size);
+        return 0.0f;
+    }
+
+    for (i = 0; i < x->size; i++) {
+        x->data[i] -= y.data[i];
+    }
+
     return;
 }
 

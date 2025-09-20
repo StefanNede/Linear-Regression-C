@@ -156,7 +156,7 @@ double get_magnitude(Vector x) {
     for (i = 0; i < x.size; i++) {
         mag += x.data[i] * x.data[i];
     }
-    mag = pow(mag, 1.0 / x.size);
+    mag = pow(mag, 1.0 / 2.0);
 
     return mag;
 }
@@ -317,6 +317,8 @@ void multiple_regression(void) {
     
     // PERFORM QR FACTORISATION OF X ===========
     QR qr = QR_factorise(data_inputs.x_inputs);
+    // print_matrix(qr.Q);
+    // print_matrix(qr.R);
 
     // TODO: PERFORM MULTIPLE LINEAR REGRESSION ===========
 

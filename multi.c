@@ -325,6 +325,8 @@ void multiple_regression(void) {
     // Free used memory
     free(data_inputs.x_inputs.data);
     free(data_inputs.y_inputs.data);
+    free(qr.Q.data);
+    free(qr.R.data);
 }
 
 

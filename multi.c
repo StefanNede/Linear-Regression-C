@@ -207,9 +207,20 @@ void multiply_scalar_vector_inplace(double scalar, Vector *x) {
     return;
 }
 
-// TODO: COMPLETE THIS
+// TODO: TEST THIS
 // X_i = col where i = col_idx
 void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx) {
+    int i;
+
+    if (col.size != X->n) {
+        printf("ERROR in inserting column into matrix. Dimensions of vector is %dx1 and of destination matrix is %dx%d\n", col.size, X->n, X->m);
+        return;
+    }
+
+    for (i = 0; i < col.size; i++) {
+        X->data[i * X->m + col_idx] = col.data[i];
+    }
+
     return;
 }
 
@@ -277,8 +288,9 @@ void testing(void) {
 
     // subtract_vector_vector_inplace(&x, x);
 
-    multiply_scalar_vector_inplace(2.0f, &x);
-    print_vector(x);
+    // multiply_scalar_vector_inplace(2.0f, &x);
+    // print_vector(x);
+    free(x.data);
 }
 
 void multiple_regression(void) {

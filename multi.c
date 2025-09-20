@@ -161,10 +161,19 @@ double get_magnitude(Vector x) {
     return mag;
 }
 
-// TODO: COMPLETE THIS
 // res = x_T * y
 double multiply_vector_vector(Vector x, Vector y) {
     double res = 0.0f;
+    int i;
+
+    if (x.size != y.size) {
+        printf("ERROR in dot product of 2 vectors. Dimensions of vector x is %dx1 and of vector y is %dx1\n", x.size, y.size);
+        return 0.0f;
+    }
+
+    for (i = 0; i < x.size; i++) {
+        res += x.data[i] * y.data[i];
+    }
 
     return res;
 }

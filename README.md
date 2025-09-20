@@ -1,5 +1,11 @@
 # Linear Regression Model in C
 
+## TODOs
+- Solve upper triangular system in multiple regression
+- Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)
+- Write python script for multi-dimensional plotting (save results of regression plane to a csv)
+- Find a way to trigger execution of plotting python script upon termination of multiple regression
+
 ## File Structure
 
 * simple.c -> runs simple linear regression on 2 variables

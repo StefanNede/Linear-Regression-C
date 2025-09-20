@@ -251,6 +251,13 @@ QR QR_factorise(Matrix X) {
 
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
+    // Testing
+    // Vector x;
+    // x.size = 2;
+    // x.data = (double*)malloc(sizeof(double)*2);
+    // x.data[0] = 1.0f; x.data[1] = 2.0f;
+    // double res = multiply_vector_vector(x,x);
+    // printf("%lf\n", res);
 
     // Loading in data 
     set_lines_dimensions("data.txt");

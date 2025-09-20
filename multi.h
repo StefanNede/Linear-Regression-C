@@ -39,17 +39,29 @@ struct QR {
 };
 
 // FUNCTION DEFINITIONS
+
+// Data handling
 void set_lines_dimensions(char *filename);
 DataInputs read_data(void);
-void multiple_regression(void);
+
+// Debugging
 void print_matrix(Matrix X);
 void print_vector(Vector x);
-Vector get_column(Matrix X, int i);
+void testing(void);
+
+// Basic LA data movement
 double get_magnitude(Vector x);
+Vector get_column(Matrix X, int i);
+void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx);
+
+// Vector operations
 double multiply_vector_vector(Vector x, Vector y);
 void subtract_vector_vector_inplace(Vector *x, Vector y);
 void multiply_scalar_vector_inplace(double scalar, Vector *x);
-void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx);
+
+// Matrix factorisations
 QR QR_factorise(Matrix X);
-void testing(void);
+
+// Orchestration
+void multiple_regression(void);
 int main(void);

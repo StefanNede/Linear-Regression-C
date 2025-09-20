@@ -29,7 +29,7 @@ struct DataInputs {
     struct Vector y_inputs;
 };
 
-// FUNCTION DECLARATIONS
+// FUNCTION DEFINITIONS
 int count_lines(char *filename);
 double *get_padded_points(double *points, double min, double max, int length, double pad_amount);
 

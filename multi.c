@@ -277,10 +277,12 @@ QR QR_factorise(Matrix X) {
 
 // Testing various functions briefly
 void testing(void) {
-    Vector x;
-    x.size = 2;
+    Vector x; Matrix y;
+    x.size = 2; y.n = y.m = 2;
     x.data = (double*)malloc(sizeof(double)*2);
     x.data[0] = 1.0f; x.data[1] = 2.0f;
+    y.data = (double*)malloc(sizeof(double)*4);
+    y.data[0] = y.data[1] = y.data[2] = y.data[3] = 0.0;
     
     // Dot product function
     // double res = multiply_vector_vector(x,x);
@@ -290,12 +292,18 @@ void testing(void) {
 
     // multiply_scalar_vector_inplace(2.0f, &x);
     // print_vector(x);
+
+    copy_column_to_matrix_inplace(x, &y, 0);
+    print_matrix(y);
+    copy_column_to_matrix_inplace(x, &y, 1);
+    print_matrix(y);
     free(x.data);
+    free(y.data);
 }
 
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
-    testing();
+    // testing();
 
     // Loading in data 
     set_lines_dimensions("data.txt");

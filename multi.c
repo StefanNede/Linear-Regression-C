@@ -207,7 +207,6 @@ void multiply_scalar_vector_inplace(double scalar, Vector *x) {
     return;
 }
 
-// TODO: TEST THIS
 // X_i = col where i = col_idx
 void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx) {
     int i;
@@ -250,7 +249,8 @@ QR QR_factorise(Matrix X) {
             Vector Q_j = get_column(res.Q, j);
             // r_ji = Q_j • X_i
             double r_ji = multiply_vector_vector(Q_j, X_i);
-            // TODO: save r_ji to matrix R
+            // save r_ji to matrix R
+            res.R.data[j*res.R.m + i] = r_ji;
 
             // Q_i = Q_i - r_ji * Q_j
             multiply_scalar_vector_inplace(r_ji, &Q_j);
@@ -260,7 +260,8 @@ QR QR_factorise(Matrix X) {
         // Q_i = Q_i / |Q_i|
         // r_ii = |Q_i|
         double r_ii = get_magnitude(Q_i);
-        // TODO: save r_ii to matrix R
+        // save r_ii to matrix R
+        res.R.data[i*res.R.m + i] = r_ii;
 
         multiply_scalar_vector_inplace(1/r_ii, &Q_i);
         // Move Q_i back into the corresponding column of the Q matrix 

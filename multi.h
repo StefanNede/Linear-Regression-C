@@ -38,9 +38,18 @@ struct QR {
     struct Matrix R;
 };
 
-// TODO: ADD ALL NEW FUNCTIONS HERE ONCE FINISHED 
-// FUNCTION DECLARATIONS
+// FUNCTION DEFINITIONS
 void set_lines_dimensions(char *filename);
 DataInputs read_data(void);
-Vector get_column(Matrix X, int i);
 void multiple_regression(void);
+void print_matrix(Matrix X);
+void print_vector(Vector x);
+Vector get_column(Matrix X, int i);
+double get_magnitude(Vector x);
+double multiply_vector_vector(Vector x, Vector y);
+void subtract_vector_vector_inplace(Vector *x, Vector y);
+void multiply_scalar_vector_inplace(double scalar, Vector *x);
+void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx);
+QR QR_factorise(Matrix X);
+void testing(void);
+int main(void);

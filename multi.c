@@ -180,7 +180,6 @@ double multiply_vector_vector(Vector x, Vector y) {
 
 // I will only use these functionalities in place and so the following sometimes take pass by reference (pointer) fields
 
-// TODO: COMPLETE THIS 
 // x = x - y
 void subtract_vector_vector_inplace(Vector *x, Vector y) {
     int i;
@@ -197,9 +196,14 @@ void subtract_vector_vector_inplace(Vector *x, Vector y) {
     return;
 }
 
-// TODO: COMPLETE THIS
 // x = r * x
 void multiply_scalar_vector_inplace(double scalar, Vector *x) {
+    int i;
+
+    for (i = 0; i < x->size; i++) {
+        x->data[i] *= scalar;
+    }
+
     return;
 }
 
@@ -271,13 +275,15 @@ void testing(void) {
     // double res = multiply_vector_vector(x,x);
     // printf("%lf\n", res);
 
-    subtract_vector_vector_inplace(&x, x);
+    // subtract_vector_vector_inplace(&x, x);
+
+    multiply_scalar_vector_inplace(2.0f, &x);
     print_vector(x);
 }
 
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
-    // testing();
+    testing();
 
     // Loading in data 
     set_lines_dimensions("data.txt");

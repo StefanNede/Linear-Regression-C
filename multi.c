@@ -187,7 +187,7 @@ void subtract_vector_vector_inplace(Vector *x, Vector y) {
 
     if (x->size != y.size) {
         printf("ERROR in subtracting 2 vectors. Dimensions of vector x is %dx1 and of vector y is %dx1\n", x->size, y.size);
-        return 0.0f;
+        return;
     }
 
     for (i = 0; i < x->size; i++) {
@@ -260,15 +260,24 @@ QR QR_factorise(Matrix X) {
     -> if encounter issues switch to the modified gram schmidt method for better stability  :) 
 */
 
-void multiple_regression(void) {
-    printf("Running Multiple Linear Regression on Input from `data.txt`\n");
-    // Testing
-    // Vector x;
-    // x.size = 2;
-    // x.data = (double*)malloc(sizeof(double)*2);
-    // x.data[0] = 1.0f; x.data[1] = 2.0f;
+// Testing various functions briefly
+void testing(void) {
+    Vector x;
+    x.size = 2;
+    x.data = (double*)malloc(sizeof(double)*2);
+    x.data[0] = 1.0f; x.data[1] = 2.0f;
+    
+    // Dot product function
     // double res = multiply_vector_vector(x,x);
     // printf("%lf\n", res);
+
+    subtract_vector_vector_inplace(&x, x);
+    print_vector(x);
+}
+
+void multiple_regression(void) {
+    printf("Running Multiple Linear Regression on Input from `data.txt`\n");
+    // testing();
 
     // Loading in data 
     set_lines_dimensions("data.txt");
@@ -288,6 +297,8 @@ void multiple_regression(void) {
     free(data_inputs.x_inputs.data);
     free(data_inputs.y_inputs.data);
 }
+
+
 
 int main(void) {
     multiple_regression();

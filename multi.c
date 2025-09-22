@@ -220,10 +220,36 @@ Vector multiply_matrix_vector(Matrix X, Vector y) {
     return z;
 }
 
+// Returns whether the matrix X is upper triangular (1) or not (0)
+int is_upper_triangular(Matrix *X) {
+    int i, j;
+    for (i = 0; i < X->n; i++) {
+        for (j = 0; j < i; j++) {
+            if (X->data[i*X->m + j] != 0.0f) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
 // TODO: IMPLEMENT THIS FUNCTION
 // Solve upper triangular system via back substitution: UT * x = y
 Vector solve_back_sub(Matrix UT, Vector y)  {
     Vector x;
+    x.size = UT.m;
+    x.data = (double*)malloc(sizeof(double)*x.size);
+
+    if (UT.n != y.size) {
+        printf("ERROR in solving upper-triangular system UT*x = y. Dimensions of matrix UT is %dx%d and of vector y is %dx1\n", UT.n, UT.m, y.size);
+        return x;
+    }
+
+    if (is_upper_triangular(&UT) == 0) {
+        printf("ERROR in solving upper-triangular system UT*x = y. Matrix UT is not upper triangular.\n");
+        return x;
+    }
+
     return x;
 }
 

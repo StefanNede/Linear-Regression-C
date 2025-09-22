@@ -53,6 +53,7 @@ void testing(void);
 double get_magnitude(Vector x);
 Vector get_column(Matrix X, int i);
 void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx);
+int is_upper_triangular(Matrix *X);
 
 // Vector/Matrix operations
 double multiply_vector_vector(Vector x, Vector y);

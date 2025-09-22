@@ -1,6 +1,6 @@
 # Linear Regression Model in C
 
-Currently using least squares and the Gram-Schmidt method for multiple regression (LaTeX file on mathematical background coming soon)...
+Currently using least squares and the Gram-Schmidt method for QR factorisation to enable efficient multiple regression (LaTeX file on mathematical background coming soon)...
 
 ## Requirements
 Simply a C compiler (all implementations of linear algebra operations and graphing have been implemented from scratch)!

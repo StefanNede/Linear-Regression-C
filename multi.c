@@ -178,6 +178,55 @@ double multiply_vector_vector(Vector x, Vector y) {
     return res;
 }
 
+// Transpose a matrix 
+Matrix transpose_matrix(Matrix X) {
+    Matrix X_T; int i, j;
+
+    X_T.n = X.m; X_T.m = X.n;
+    X_T.data = (double*)malloc(X_T.n * X_T.m * sizeof(double));
+
+    // data[i][j] = data[j][i]
+    for (i = 0; i < X.n; i++) {
+        for (j = 0; j < X.m; j++) {
+            X_T.data[j * X_T.m + i] = X.data[i * X.m + j];
+        }
+    }
+
+    return X_T;
+}
+
+// Calculate X*y = z
+Vector multiply_matrix_vector(Matrix X, Vector y) {
+    Vector z; int i, j; double res;
+    z.size = X.n;
+    z.data = (double*)malloc(sizeof(double) * X.n);
+
+    if (X.m != y.size) {
+        printf("ERROR in matrix vector multiplication. Dimensions do not match. Trying to multiply %dx%d matrix X with %dx1 vector y\n", X.n, X.m, y.size);
+    }
+
+    for (i = 0; i < z.size; i++) {
+        // multiply row i of X by y
+
+        res = 0;
+        for (j = 0; j < y.size; j++) {
+            // printf("%lf, %lf\n", X.data[i*X.m + j], y.data[j]);
+            res += X.data[i * X.m + j] * y.data[j];
+        }
+
+        z.data[i] = res;
+    }
+
+    return z;
+}
+
+// TODO: IMPLEMENT THIS FUNCTION
+// Solve upper triangular system via back substitution: UT * x = y
+Vector solve_back_sub(Matrix UT, Vector y)  {
+    Vector x;
+    return x;
+}
+
 // I will only use these functionalities in place and so the following sometimes take pass by reference (pointer) fields
 
 // x = x - y
@@ -320,13 +369,20 @@ void multiple_regression(void) {
     // print_matrix(qr.Q);
     // print_matrix(qr.R);
 
-    // TODO: PERFORM MULTIPLE LINEAR REGRESSION ===========
+    // PERFORM MULTIPLE LINEAR REGRESSION ===========
+    // R*b = Q_T * y
+    Matrix Q_T = transpose_matrix(qr.Q);
+    Vector z = multiply_matrix_vector(Q_T, data_inputs.y_inputs);
+    Vector b = solve_back_sub(qr.R, z);
 
     // Free used memory
     free(data_inputs.x_inputs.data);
     free(data_inputs.y_inputs.data);
     free(qr.Q.data);
     free(qr.R.data);
+    free(Q_T.data);
+    free(z.data);
+    free(b.data);
 }
 
 

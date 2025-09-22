@@ -54,10 +54,13 @@ double get_magnitude(Vector x);
 Vector get_column(Matrix X, int i);
 void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx);
 
-// Vector operations
+// Vector/Matrix operations
 double multiply_vector_vector(Vector x, Vector y);
 void subtract_vector_vector_inplace(Vector *x, Vector y);
 void multiply_scalar_vector_inplace(double scalar, Vector *x);
+Matrix transpose_matrix(Matrix X);
+Vector multiply_matrix_vector(Matrix X, Vector y);
+Vector solve_back_sub(Matrix UT, Vector y);
 
 // Matrix factorisations
 QR QR_factorise(Matrix X);

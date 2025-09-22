@@ -31,7 +31,7 @@ points = np.array([
 ])
 
 # Plot the points
-ax.scatter(points[:, 0], points[:, 1], points[:, 2], color='red', s=50, label='Data Points')
+ax.scatter(points[:, 0], points[:, 1], points[:, 2], color='red', s=10, label='Data Points')
 
 # Set labels for the axes
 ax.set_xlabel('X axis')

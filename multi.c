@@ -236,10 +236,11 @@ int is_upper_triangular(Matrix *X) {
 // TODO: IMPLEMENT THIS FUNCTION
 // Solve upper triangular system via back substitution: UT * x = y
 Vector solve_back_sub(Matrix UT, Vector y)  {
-    Vector x;
+    Vector x; int i,j;
     x.size = UT.m;
     x.data = (double*)malloc(sizeof(double)*x.size);
 
+    // Input validation
     if (UT.n != y.size) {
         printf("ERROR in solving upper-triangular system UT*x = y. Dimensions of matrix UT is %dx%d and of vector y is %dx1\n", UT.n, UT.m, y.size);
         return x;
@@ -248,6 +249,12 @@ Vector solve_back_sub(Matrix UT, Vector y)  {
     if (is_upper_triangular(&UT) == 0) {
         printf("ERROR in solving upper-triangular system UT*x = y. Matrix UT is not upper triangular.\n");
         return x;
+    }
+
+    // Back substitution
+    for (i = x.size-1; i >= 0; i--) {
+        x.data[i] = 1.0f;
+        // for (j = )
     }
 
     return x;
@@ -416,6 +423,7 @@ void multiple_regression(void) {
 
 
 int main(void) {
+    printf("DISCLAIMER: MULTIPLE LINEAR REGRESSION IS NOT CURRENTLY FULLY IMPLEMENTED.\n");
     multiple_regression();
     return 0;
 }

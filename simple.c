@@ -357,6 +357,7 @@ void simple_regression(void) {
 
     // OUTPUT RESULTS ===========
     // Printing in y = mx + c format, rounding coefficients to 2dp
+    printf("Your regression line equation is:\n");
     printf("y = %.2fx + %.2f\n", res.data[1], res.data[0]);
     plot_results(data_inputs, res);
 

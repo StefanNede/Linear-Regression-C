@@ -374,6 +374,8 @@ void multiple_regression(void) {
     Matrix Q_T = transpose_matrix(qr.Q);
     Vector z = multiply_matrix_vector(Q_T, data_inputs.y_inputs);
     Vector b = solve_back_sub(qr.R, z);
+    printf("Your regression plane equation is:\n");
+    print_vector(b);
 
     // Free used memory
     free(data_inputs.x_inputs.data);

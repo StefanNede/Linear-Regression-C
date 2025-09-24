@@ -47,7 +47,9 @@ DataInputs read_data(void);
 // Debugging
 void print_matrix(Matrix X);
 void print_vector(Vector x);
+void print_plane(Vector *coefficients);
 void testing(void);
+void test_back_sub(void);
 
 // Basic LA data movement
 double get_magnitude(Vector x);

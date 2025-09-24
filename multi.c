@@ -233,7 +233,6 @@ int is_upper_triangular(Matrix *X) {
     return 1;
 }
 
-// TODO: IMPLEMENT THIS FUNCTION
 // Solve upper triangular system via back substitution: UT * x = y
 Vector solve_back_sub(Matrix UT, Vector y)  {
     Vector x; int i,j;
@@ -252,9 +251,21 @@ Vector solve_back_sub(Matrix UT, Vector y)  {
     }
 
     // Back substitution
-    for (i = x.size-1; i >= 0; i--) {
-        x.data[i] = 1.0f;
-        // for (j = )
+    for (i = x.size - 1; i >= 0; i--) {
+        double coeff = UT.data[i * UT.m + i];
+        double res = y.data[i];
+
+        // Avoid division by 0 error
+        if (coeff == 0.0f) {
+            continue;
+        }
+        
+        // Substitute discovered values
+        for (j = UT.m-1; j > i; j--) {
+            res -= UT.data[i * UT.m + j] * x.data[j];
+        }
+        res /= coeff;
+        x.data[i] = res;
     }
 
     return x;

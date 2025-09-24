@@ -4,6 +4,11 @@
 #include <math.h>
 #include "multi.h"
 
+/* TODO: 'for further work' comment
+   Note: we are using classical Gram Schmidt here which is potentially numerically unstable 
+    -> if encounter issues switch to the modified gram schmidt method for better stability  :) 
+*/
+
 /* VARIABLES with types
     p - int - number of dimensions we are running regression on
     n - int - number of data point tuples -> 1 dependent variable and p-1 explanatory ones
@@ -370,11 +375,6 @@ QR QR_factorise(Matrix X) {
     return res;
 }
 
-/* TODO: put this comment somewhere as a 'for further work' comment
-   Note: we are using classical Gram Schmidt here which is potentially numerically unstable 
-    -> if encounter issues switch to the modified gram schmidt method for better stability  :) 
-*/
-
 // TODO: Properly test solve_back_sub function
 // Testing the function that solves a consistent square upper triangular system via back substitution
 void test_back_sub(void) {
@@ -454,8 +454,6 @@ void multiple_regression(void) {
     free(z.data);
     free(b.data);
 }
-
-
 
 int main(void) {
     printf("DISCLAIMER: MULTIPLE LINEAR REGRESSION IS NOT CURRENTLY FULLY IMPLEMENTED.\n");

@@ -240,6 +240,11 @@ Vector solve_back_sub(Matrix UT, Vector y)  {
     x.data = (double*)malloc(sizeof(double)*x.size);
 
     // Input validation
+    if (UT.n != UT.m) {
+        printf("ERROR in solving upper-triangular system UT*x = y. Dimensions of matrix UT is %dx%d, and it should be square for a consistent system.\n", UT.n, UT.m);
+        return x;
+    }
+
     if (UT.n != y.size) {
         printf("ERROR in solving upper-triangular system UT*x = y. Dimensions of matrix UT is %dx%d and of vector y is %dx1\n", UT.n, UT.m, y.size);
         return x;
@@ -257,6 +262,7 @@ Vector solve_back_sub(Matrix UT, Vector y)  {
 
         // Avoid division by 0 error
         if (coeff == 0.0f) {
+            printf("BEWARE: in solving upper-triangular system UT*x = y. There exists a 0 on the diagonal of matrix UT, making the system have infinite solutions.\n");
             continue;
         }
         

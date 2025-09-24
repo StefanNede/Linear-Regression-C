@@ -375,6 +375,12 @@ QR QR_factorise(Matrix X) {
     -> if encounter issues switch to the modified gram schmidt method for better stability  :) 
 */
 
+// TODO: Properly test solve_back_sub function
+// Testing the function that solves a consistent square upper triangular system via back substitution
+void test_back_sub(void) {
+
+}
+
 // Testing various functions briefly
 void testing(void) {
     Vector x; Matrix y;
@@ -393,12 +399,24 @@ void testing(void) {
     // multiply_scalar_vector_inplace(2.0f, &x);
     // print_vector(x);
 
+    test_back_sub();
+
     copy_column_to_matrix_inplace(x, &y, 0);
     print_matrix(y);
     copy_column_to_matrix_inplace(x, &y, 1);
     print_matrix(y);
     free(x.data);
     free(y.data);
+}
+
+// Print a plane given the coefficients necessary
+void print_plane(Vector *coefficients) {
+    int i;
+    printf("Y = ");
+    for (i = 0; i < coefficients->size - 1; i++) {
+        printf("%lf*X_%d + ", coefficients->data[i], i);
+    }
+    printf("%lf*X_%d\n", coefficients->data[coefficients->size - 1], coefficients->size - 1);
 }
 
 void multiple_regression(void) {
@@ -425,7 +443,7 @@ void multiple_regression(void) {
     Vector z = multiply_matrix_vector(Q_T, data_inputs.y_inputs);
     Vector b = solve_back_sub(qr.R, z);
     printf("Your regression plane equation is:\n");
-    print_vector(b);
+    print_plane(&b);
 
     // Free used memory
     free(data_inputs.x_inputs.data);

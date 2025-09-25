@@ -34,8 +34,7 @@ Running simple linear regression on the data in `data>data_copy_2.txt` returns t
 (Multiple regression examples coming soon).
 
 ## TODOs
-1. Solve upper triangular system in multiple regression
-2. Write python script for multi-dimensional plotting (save results of regression plane to a csv)
+1. Write python script for multi-dimensional plotting (save results of regression plane to a csv)
 3. Complete README with examples of use
 4. Add LaTeX file explaining mathematical background
 5. Find a way to trigger execution of plotting python script upon termination of multiple regression

@@ -496,7 +496,7 @@ void multiple_regression(void) {
 }
 
 int main(void) {
-    printf("DISCLAIMER: MULTIPLE LINEAR REGRESSION IS NOT CURRENTLY FULLY IMPLEMENTED.\n");
+    printf("DISCLAIMER: MULTIPLE LINEAR REGRESSION IS CURRENTLY STILL PRONE TO INSTABILITY ISSUES.\n");
     multiple_regression();
     return 0;
 }

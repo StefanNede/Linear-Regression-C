@@ -413,10 +413,11 @@ void testing(void) {
 void print_plane(Vector *coefficients) {
     int i;
     printf("Y = ");
-    for (i = 0; i < coefficients->size - 1; i++) {
-        printf("%lf*X_%d + ", coefficients->data[i], i);
+    printf("%lf", coefficients->data[0]);
+    for (i = 1; i < coefficients->size; i++) {
+        printf(" + %lf*X_%d", coefficients->data[i], i);
     }
-    printf("%lf*X_%d\n", coefficients->data[coefficients->size - 1], coefficients->size - 1);
+    printf("\n");
 }
 
 void multiple_regression(void) {

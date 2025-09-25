@@ -48,6 +48,7 @@ DataInputs read_data(void);
 void print_matrix(Matrix X);
 void print_vector(Vector x);
 void print_plane(Vector *coefficients);
+void save_plane(Vector *coefficients);
 void testing(void);
 void test_back_sub(void);
 

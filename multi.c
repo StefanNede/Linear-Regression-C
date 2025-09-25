@@ -420,6 +420,18 @@ void print_plane(Vector *coefficients) {
     printf("\n");
 }
 
+// Save the plane coefficients to a csv file for 3d plotting in python
+void save_plane(Vector *coefficients) {
+    int i;
+    FILE *fptr;
+    fptr = fopen("plane.txt", "w");
+    for (i = 0; i < coefficients->size-1;i++) {
+        fprintf(fptr, "%lf,", coefficients->data[i]);
+    }
+    fprintf(fptr, "%lf", coefficients->data[coefficients->size-1]);
+    fclose(fptr);
+}
+
 void multiple_regression(void) {
     printf("Running Multiple Linear Regression on Input from `data.txt`\n");
     // testing();
@@ -445,6 +457,7 @@ void multiple_regression(void) {
     Vector b = solve_back_sub(qr.R, z);
     printf("Your regression plane equation is:\n");
     print_plane(&b);
+    save_plane(&b);
 
     // Free used memory
     free(data_inputs.x_inputs.data);

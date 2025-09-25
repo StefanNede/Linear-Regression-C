@@ -10,6 +10,7 @@ Simply a C compiler (all implementations of linear algebra operations and graphi
 * simple.c -> runs simple linear regression on 2 variables
 * multi.c -> runs multiple linear regression on >2 variables
 * data.txt -> holds the data that we will run linear regression where each new line is a new point in the format of `x,y,z,...` (make sure no new line on the last line) -> the first value in each line is the dependent variable, and the rest are the explanatory ones
+* plane.txt -> holds the regression plane generated in the format of coefficients for the plane equation, i.e. if plane Z = C + A*X + B*Y then saved as C,A,B
 
 For plotting 3d points and plane generated, write code to do this in python -> save results to a csv and then have a python program that reads these in and executes generating the 3d plot.
 

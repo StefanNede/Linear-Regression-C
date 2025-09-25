@@ -375,10 +375,36 @@ QR QR_factorise(Matrix X) {
     return res;
 }
 
-// TODO: Properly test solve_back_sub function
 // Testing the function that solves a consistent square upper triangular system via back substitution
 void test_back_sub(void) {
+    Matrix UT; Vector y;
+    UT.n = UT.m = 3; y.size = 3;
+    UT.data = (double*)malloc(sizeof(double)*UT.n*UT.m); y.data = (double*)malloc(sizeof(double)*y.size);
 
+    UT.data[0] = 2;
+    UT.data[1] = 1;
+    UT.data[2] = -1;
+    UT.data[3] = 0;
+    UT.data[4] = 3;
+    UT.data[5] = 2;
+    UT.data[6] = 0;
+    UT.data[7] = 0;
+    UT.data[8] = 4;
+
+    y.data[0] = 5;
+    y.data[1] = 4;
+    y.data[2] = 8;
+
+    Vector x = solve_back_sub(UT, y);
+    print_vector(x);
+    if (x.data[0] == 3.5f && x.data[1] == 0.0f && x.data[2] == 2.0f){
+        printf("Back substitution test passed :)\n");
+    } else{
+        printf("ERROR: Back substitution test failed\n");
+    }
+
+    free(UT.data);
+    free(y.data);
 }
 
 // Testing various functions briefly

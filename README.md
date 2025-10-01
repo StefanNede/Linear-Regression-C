@@ -96,8 +96,7 @@ On a 10D example (`data>data_copy_6.txt`) we get the plane equation
 ---
 
 ## TODOs
-1. Make main.py orchestrate the process
-2. Fix file structure 
-3. Add UI
-4. Add LaTeX file explaining mathematical background
-5. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)
+1. Fix file structure 
+2. Add UI
+3. Add LaTeX file explaining mathematical background
+4. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)

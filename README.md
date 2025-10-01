@@ -36,7 +36,8 @@ Running simple linear regression on the data in `data>data_copy_2.txt` returns t
 
 Running multiple linear regression on the data in `data>data_copy_3.txt` returns the following graph with parameters 1.97, 3.12, and -13.27 (z = 1.97x + 3.12y - 13.27):
 
-(Insert video of 3d plt plot here)
+[![Example 1]](https://github.com/user-attachments/assets/a74e0000-86fb-4be0-b989-c441bb1e889f)
+
 
 
 (Insert less correlated example here)

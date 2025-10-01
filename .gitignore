@@ -1,6 +1,7 @@
 main.dSYM/
 multi.dSYM/
 simple.dSYM/
+__pycache__/
 
 # no object files
 *.o

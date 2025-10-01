@@ -4,6 +4,7 @@ Currently using least squares and the Gram-Schmidt method for QR factorisation t
 
 ## Requirements
 Simply a C compiler (all implementations of linear algebra operations and graphing have been implemented from scratch)!
+If you want 3d plotting then you need python3, numpy, and matplotlib.
 
 ## File Structure
 
@@ -17,13 +18,14 @@ For plotting 3d points and plane generated, write code to do this in python -> s
 For dimensions higher than 3 do not bother with the plotting.
 
 ## How To Use
-Write your input points into data.txt in a csv format.
+Write your input points into data.txt in a csv format (the dependent variable is the first entry).
 
 ### Simple Regression
 Run `make simple_regression` followed by `./simple` in the terminal. The equation for the line of best fit will be output in the terminal, and the graph (graphed in C) will be saved to `simple_regression.png`.
 
 ### Multiple Regression
-Run `make multi` followed by `./multi` in the terminal. The equation for the plane of best fit will be output in the terminal - graphing coming soon.
+Run `make multi` followed by `./multi` in the terminal. The equation for the plane of best fit will be output in the terminal.
+To graph run `python3 main.py` -> graph will be shown and saved to `multiple_regression.png`.
 
 ## Examples
 
@@ -54,6 +56,7 @@ On a 10D example (`data>data_copy_6.txt`) we get the plane equation
 `y = -343821340670654.56 + 5.3x_1 + -1.38x_2 + -201.33x_3 + 19154866637184.25x_4 + -161032246183913.375x5 + -52591697583861.63x_6 + 181283712952031.41x_7 + -264.58x_8 + 3.09x_9` (result was instantaneous -> very good performance)
 
 ## TODOs
-1. Add LaTeX file explaining mathematical background
-2. Find a way to trigger execution of plotting python script upon termination of multiple regression
-3. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)
+1. Fix file structure 
+2. Add LaTeX file explaining mathematical background
+3. Find a way to trigger execution of plotting python script upon termination of multiple regression
+4. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)

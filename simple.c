@@ -332,6 +332,7 @@ void plot_results(DataInputs data_inputs, Vector c_m) {
 	size_t length;
 	double *pngdata = ConvertToPNG(&length, canvasReference->image);
 	WriteToFile(pngdata, length, "simple_regression.png");
+    printf("Plot saved to `simple_regression.png`\n");
 	DeleteImage(canvasReference->image);
 
     free(padded_x_points);

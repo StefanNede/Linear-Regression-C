@@ -17,7 +17,13 @@ def read_datapoints():
     return datapoints
 
 def read_plane():
-    """ Take in the plane coefficients from the result of linear regression from plane.txt """
+    """ Take in the plane coefficients from the result of linear regression from plane.txt
+
+    Returns
+    -------
+    plane_coefficients : list[float]
+        Returns [scalar_value, coefficient_1, coefficient_2, ...]
+    """
     plane_coefficients = []
 
     with open(PLANE_FILE, "r") as file:

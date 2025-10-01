@@ -28,18 +28,18 @@ Run `make multi` followed by `./multi` in the terminal. The equation for the pla
 ## Examples
 
 ### Simple Linear Regression Plots (2D)
-Running simple linear regression on the data in `data>data_copy_2.txt` returns the following graph with parameters 1.90 and -16.77 (y = 1.90x + -16.77):
+Running simple linear regression on the data in `data>data_copy_2.txt` returns the following graph with parameters 1.90 and -16.77 (`y = 1.90x + -16.77`):
 
 <img width="800" height="640" alt="simple_regression" src="https://github.com/user-attachments/assets/14a50265-9769-4362-964d-ad63ff383dea" />
 
 ### Multiple Linear Regression Plots (3D)
 
-Running multiple linear regression on the data in `data>data_copy_3.txt` returns the following graph with parameters 1.97, 3.12, and -13.27 (z = 1.97x + 3.12y - 13.27):
+Running multiple linear regression on the data in `data>data_copy_3.txt` returns the following graph with parameters 1.97, 3.12, and -13.27 (`z = 1.97x + 3.12y - 13.27`):
 
 [![Example 1]](https://github.com/user-attachments/assets/a74e0000-86fb-4be0-b989-c441bb1e889f)
 
 
-On a less correlated example `data>data_copy_4.txt` we get the parameters 3.59, 4.00, and -261.40 (z = 3.59x + 4.00y - 261.40):
+On a less correlated example `data>data_copy_4.txt` we get the parameters 3.59, 4.00, and -261.40 (`z = 3.59x + 4.00y - 261.40`):
 
 [![Example 2]](https://github.com/user-attachments/assets/358c6543-ca2a-4331-ab12-839e40a03858)
 
@@ -48,9 +48,10 @@ Note: we can also display less correlated scenarios although it is hard visually
 
 ### Multiple Linear Regression Plane Equations (4D+)
 
-On a 4D example of 50 data points generated to have noise around the plane w = 2x + 3y + z (`data>data_copy_5.txt`), we get the parameters 2.79, 2.62, 1.08, and -34.87 (w = 2.79x + 2.62y + 1.08z - 34.87). This is indicative of a correct output.
+On a 4D example of 50 data points generated to have noise around the plane w = 2x + 3y + z (`data>data_copy_5.txt`), we get the parameters 2.79, 2.62, 1.08, and -34.87 (`w = 2.79x + 2.62y + 1.08z - 34.87`). This is indicative of a correct output.
 
-On a 10D example ...
+On a 10D example (`data>data_copy_6.txt`) we get the plane equation
+`y = -343821340670654.56 + 5.3x_1 + -1.38x_2 + -201.33x_3 + 19154866637184.25x_4 + -161032246183913.375x5 + -52591697583861.63x_6 + 181283712952031.41x_7 + -264.58x_8 + 3.09x_9` (result was instantaneous -> very good performance)
 
 ## TODOs
 1. Complete README with examples of use

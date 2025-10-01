@@ -35,7 +35,6 @@ def read_plane():
 
     return plane_coefficients
 
-# TODO: implement this -> currently has example 3d plane
 def plot_3d():
     """ Plot the 3d regression plane and the datapoints it was based on """
     datapoints = read_datapoints()
@@ -51,6 +50,7 @@ def plot_3d():
     C = 1
     D = plane_coefficients[0]
 
+    # TODO: Fix this range of values
     # Create a grid of x and y values
     x = np.linspace(-5, 5, 10)
     y = np.linspace(-5, 5, 10)
@@ -83,7 +83,7 @@ def plot_3d():
     ax.set_zlabel('Z axis')
 
     # TODO: fix this title
-    plt.title('3D Plane: x + 2y + 3z = 6')
+    plt.title(f"3D Plane: {A}x + {B}y - {C}z = -{D}")
     plt.show()
 
 if __name__ == "__main__":

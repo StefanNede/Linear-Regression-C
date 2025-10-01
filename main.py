@@ -1,10 +1,20 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+DATAPOINTS_FILE = "data.txt"
+PLANE_FILE = "plane.txt"
+
 # TODO: implement this
 def read_datapoints():
     """ Take in the datapoints linear regression was run on from data.txt """
-    pass
+    datapoints = []
+
+    with open(DATAPOINTS_FILE, "r") as file:
+        for line in file:
+            points = [int(i) for i in line.split(",")]
+            datapoints.append(points)
+
+    return datapoints
 
 # TODO: implement this
 def read_plane():

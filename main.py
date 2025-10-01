@@ -12,6 +12,8 @@ def read_datapoints():
         for line in file:
             line = line.strip()
             points = [float(i) for i in line.split(",")]
+            # move dependent variable to the end
+            points = points[1:] + [points[0]]
             datapoints.append(points)
 
     return datapoints
@@ -39,11 +41,15 @@ def plot_3d():
     datapoints = read_datapoints()
     plane_coefficients = read_plane()
 
-    # The plane equation is Ax + By + Cz = D
-    A = 1
-    B = 2
-    C = 3
-    D = 6
+    # plotting 3d data check
+    assert len(datapoints[0]) == 3 
+    assert len(plane_coefficients) == 3
+
+    # The plane equation is Cz = D + Ax + By where C = 1
+    A = plane_coefficients[1]
+    B = plane_coefficients[2]
+    C = 1
+    D = plane_coefficients[0]
 
     # Create a grid of x and y values
     x = np.linspace(-5, 5, 10)
@@ -51,7 +57,7 @@ def plot_3d():
     X, Y = np.meshgrid(x, y)
 
     # Calculate the corresponding z values
-    Z = (D - A*X - B*Y) / C
+    Z = (D + A*X + B*Y) / C
 
     # Debug log
     print("Plotting the 3d regression plane and datapoints it's based on ...")
@@ -65,12 +71,9 @@ def plot_3d():
 
     # Define and plot the 3D points
     # Example points (x, y, z)
-    points = np.array([
-        [1, 1, 1],    # A point on the plane (1*1 + 2*1 + 3*1 = 6)
-        [3, 0, 0],    # A point off the plane
-        [-2, 5, 2]    # Another point off the plane
-    ])
+    points = np.array(datapoints)
 
+    # TODO: generalise to more than 3 points
     # Plot the points
     ax.scatter(points[:, 0], points[:, 1], points[:, 2], color='red', s=10, label='Data Points')
 
@@ -79,6 +82,7 @@ def plot_3d():
     ax.set_ylabel('Y axis')
     ax.set_zlabel('Z axis')
 
+    # TODO: fix this title
     plt.title('3D Plane: x + 2y + 3z = 6')
     plt.show()
 

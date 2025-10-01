@@ -26,7 +26,10 @@ A linear regression model that uses OLS (ordinary least squares), the normal equ
 
 ## How To Use
 Write your input points into data.txt in a csv format (the dependent variable is the first entry).
+<br/>  
 You can either interface with the C files or use a simpler Python orchestration file.
+<br/>  
+Python UI for easier input of data coming soon ...
 
 ### Python Orchestration
 1. Run the following in the terminal to compile the C backend shared libraries:

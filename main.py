@@ -40,7 +40,7 @@ def plot_3d():
     datapoints = read_datapoints()
     plane_coefficients = read_plane()
 
-    # plotting 3d data check
+    # Plotting 3d data check
     assert len(datapoints[0]) == 3 
     assert len(plane_coefficients) == 3
 

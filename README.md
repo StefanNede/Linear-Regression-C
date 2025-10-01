@@ -26,14 +26,26 @@ A linear regression model that uses OLS (ordinary least squares), the normal equ
 
 ## How To Use
 Write your input points into data.txt in a csv format (the dependent variable is the first entry).
+You can either interface with the C files or use a simpler Python orchestration file.
+
+### Python Orchestration
+1. Run the following in the terminal to compile the C backend shared libraries:
+   ```bash
+   make all
+   ```
+2. Run the following in the terminal to run linear regression on your data:
+   ```bash
+   python3 main.py
+   ```
+   3D plots will be immediately shown and saved in `multiple_regression.png`; 2D plots will be saved in `simple_regression.png`
 
 ### Simple Regression
 1. Run the following in the terminal:
    ```bash
-   make simple_regression
+   make simple
    ./simple
    ```
-2. The equation for the line of best fit will be output in the terminal, and the graph (graphed in C) will be saved to `simple_regression.png`.
+   The equation for the line of best fit will be output in the terminal, and the graph (graphed in C) will be saved to `simple_regression.png`.
 
 ### Multiple Regression
 1. Run the following in the terminal:
@@ -44,7 +56,7 @@ Write your input points into data.txt in a csv format (the dependent variable is
 3. The equation for the plane of best fit will be output in the terminal.
 4. To graph run the following in the terminal:
    ```bash
-   python3 main.py
+   python3 plot3d.py
    ```
    The graph will be shown and saved to `multiple_regression.png`.
 

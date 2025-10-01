@@ -39,6 +39,7 @@ Running multiple linear regression on the data in `data>data_copy_3.txt` returns
 [![Example 1]](https://github.com/user-attachments/assets/a74e0000-86fb-4be0-b989-c441bb1e889f)
 
 
+On a less correlated example `data>data_copy_4.txt` we get the parameters 3.59, 4.00, and -261.40 (z = 3.59x + 4.00y - 261.40):
 
 (Insert less correlated example here)
 

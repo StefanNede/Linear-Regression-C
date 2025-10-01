@@ -27,11 +27,23 @@ Run `make multi` followed by `./multi` in the terminal. The equation for the pla
 
 ## Examples
 
+### Simple Linear Regression Plots (2D)
 Running simple linear regression on the data in `data>data_copy_2.txt` returns the following graph with parameters 1.90 and -16.77 (y = 1.90x + -16.77):
 
 <img width="1000" height="800" alt="simple_regression" src="https://github.com/user-attachments/assets/14a50265-9769-4362-964d-ad63ff383dea" />
 
-(Multiple regression examples coming soon).
+### Multiple Linear Regression Plots (3D)
+
+Running multiple linear regression on the data in `data>data_copy_3.txt` returns the following graph with parameters 1.97, 3.12, and -13.27 (z = 1.97x + 3.12y - 13.27):
+
+(Insert video of 3d plt plot here)
+
+
+(Insert less correlated example here)
+
+### Multiple Linear Regression Plane Equations (4D+)
+
+(Insert numerical examples here)
 
 ## TODOs
 1. Complete README with examples of use

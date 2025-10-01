@@ -50,10 +50,10 @@ def plot_3d():
     C = 1
     D = plane_coefficients[0]
 
-    # TODO: Fix this range of values
+    # TODO: Fix this range of values (find min and max x,y values)
     # Create a grid of x and y values
-    x = np.linspace(-5, 5, 10)
-    y = np.linspace(-5, 5, 10)
+    x = np.linspace(-20, 20, 40)
+    y = np.linspace(-20, 20, 40)
     X, Y = np.meshgrid(x, y)
 
     # Calculate the corresponding z values
@@ -73,9 +73,11 @@ def plot_3d():
     # Example points (x, y, z)
     points = np.array(datapoints)
 
-    # TODO: generalise to more than 3 points
     # Plot the points
-    ax.scatter(points[:, 0], points[:, 1], points[:, 2], color='red', s=10, label='Data Points')
+    x_points = points[:, 0]
+    y_points = points[:, 1]
+    z_points = points[:, 2]
+    ax.scatter(x_points, y_points, z_points, color='red', s=10, label='Data Points')
 
     # Set labels for the axes
     ax.set_xlabel('X axis')

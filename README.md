@@ -43,6 +43,7 @@ On a less correlated example `data>data_copy_4.txt` we get the parameters 3.59, 
 
 [![Example 2]](https://github.com/user-attachments/assets/358c6543-ca2a-4331-ab12-839e40a03858)
 
+Note: we can also display less correlated scenarios although it is hard visually to tell whether the plane is correct (one must trust the mathematics here)
 
 
 ### Multiple Linear Regression Plane Equations (4D+)

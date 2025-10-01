@@ -64,8 +64,8 @@ def plot_3d():
     min_y, max_y = min(y_points), max(y_points)
     deviation_y = abs(max_y - min_y) # use this to give boundary around points for nicer plotting
 
-    x = np.linspace(min_x - deviation_x, max_x + deviation_x)
-    y = np.linspace(min_y - deviation_y, max_y + deviation_y)
+    x = np.linspace(min_x - deviation_x/2, max_x + deviation_x/2)
+    y = np.linspace(min_y - deviation_y/2, max_y + deviation_y/2)
     X, Y = np.meshgrid(x, y)
 
     # Calculate the corresponding z values

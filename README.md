@@ -54,7 +54,6 @@ On a 10D example (`data>data_copy_6.txt`) we get the plane equation
 `y = -343821340670654.56 + 5.3x_1 + -1.38x_2 + -201.33x_3 + 19154866637184.25x_4 + -161032246183913.375x5 + -52591697583861.63x_6 + 181283712952031.41x_7 + -264.58x_8 + 3.09x_9` (result was instantaneous -> very good performance)
 
 ## TODOs
-1. Complete README with examples of use
-2. Add LaTeX file explaining mathematical background
-3. Find a way to trigger execution of plotting python script upon termination of multiple regression
-4. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)
+1. Add LaTeX file explaining mathematical background
+2. Find a way to trigger execution of plotting python script upon termination of multiple regression
+3. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)

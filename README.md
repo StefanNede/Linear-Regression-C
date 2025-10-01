@@ -48,7 +48,9 @@ Note: we can also display less correlated scenarios although it is hard visually
 
 ### Multiple Linear Regression Plane Equations (4D+)
 
-(Insert numerical examples here)
+On a 4D example of 50 data points generated to have noise around the plane w = 2x + 3y + z (`data>data_copy_5.txt`), we get the parameters 2.79, 2.62, 1.08, and -34.87 (w = 2.79x + 2.62y + 1.08z - 34.87). This is indicative of a correct output.
+
+On a 10D example ...
 
 ## TODOs
 1. Complete README with examples of use

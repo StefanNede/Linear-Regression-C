@@ -94,5 +94,16 @@ def plot_3d():
     plt.savefig("multiple_regression.png")
     plt.show()
 
+# create shared library file from C source file using:
+# cc -fPIC -shared -o my_functions.so my_functions.c
+from ctypes import *
+import os
+current_directory = os.getcwd()
+multiple_so_file = f"{current_directory}/multi.so"
+def run_regression():
+    multiple_regression_functions = CDLL(multiple_so_file)
+    multiple_regression_functions.multiple_regression()
+
 if __name__ == "__main__":
+    run_regression()
     plot_3d()

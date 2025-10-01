@@ -99,7 +99,7 @@ def plot_3d():
 from ctypes import *
 import os
 current_directory = os.getcwd()
-multiple_so_file = f"{current_directory}/multi.so"
+multiple_so_file = f"{current_directory}/multi_export.so"
 def run_regression():
     multiple_regression_functions = CDLL(multiple_so_file)
     multiple_regression_functions.multiple_regression()

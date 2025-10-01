@@ -91,6 +91,7 @@ def plot_3d():
 
     # TODO: make this title nicer
     plt.title(f"3D Plane: {A}x + {B}y - {C}z = -{D}")
+    plt.savefig("multiple_regression.png")
     plt.show()
 
 if __name__ == "__main__":

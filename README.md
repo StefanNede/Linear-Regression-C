@@ -102,7 +102,6 @@ On a 10D example (`data>data_copy_6.txt`) we get the plane equation
 ---
 
 ## TODOs
-1. Fix file structure 
-2. Add UI
-3. Add LaTeX file explaining mathematical background
-4. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)
+1. Add UI
+2. Add LaTeX file explaining mathematical background
+3. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)

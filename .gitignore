@@ -4,6 +4,7 @@ simple.dSYM/
 c-backend/main.dSYM/
 c-backend/multi.dSYM/
 c-backend/simple.dSYM/
+c-backend/linalg.o.dSYM/
 __pycache__/
 app/__pycache__/
 

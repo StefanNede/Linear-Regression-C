@@ -1,12 +1,13 @@
 from ctypes import *
-from utils import read_datapoints, read_plane
-from plot3d import plot_3d
+from app.utils import read_datapoints, read_plane
+from app.plot3d import plot_3d
 import os
 
 # Globals + Constants
 DATAPOINTS_FILE = "data.txt"
 PLANE_FILE = "plane.txt"
 CUR_DIR = os.getcwd()
+# TODO: fix these paths
 SIMPLE_SO_FILE = f"{CUR_DIR}/simple_export.so"
 MULTIPLE_SO_FILE = f"{CUR_DIR}/multi_export.so"
 is_3d = False # flag to indicate whether regression is in 3D

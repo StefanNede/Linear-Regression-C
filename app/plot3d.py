@@ -1,6 +1,6 @@
 # 3D plotting code as last step in multiple linear regression
 
-from utils import read_datapoints, read_plane
+from app.utils import read_datapoints, read_plane
 import numpy as np
 import matplotlib.pyplot as plt
 

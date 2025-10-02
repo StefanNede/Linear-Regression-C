@@ -4,11 +4,12 @@ from plot3d import plot_3d
 import os
 
 # Globals + Constants
-DATAPOINTS_FILE = "data.txt"
-PLANE_FILE = "plane.txt"
+# NOTE: if running these files whilst in the root folder then change them 
+DATAPOINTS_FILE = "../data/data.txt"
+PLANE_FILE = "../data/plane.txt"
 CUR_DIR = os.getcwd()
-SIMPLE_SO_FILE = f"{CUR_DIR}/simple_export.so"
-MULTIPLE_SO_FILE = f"{CUR_DIR}/multi_export.so"
+SIMPLE_SO_FILE = f"{CUR_DIR}/../c-backend/simple_export.so"
+MULTIPLE_SO_FILE = f"{CUR_DIR}/../c-backend/multi_export.so"
 is_3d = False # flag to indicate whether regression is in 3D
 
 # Use the efficient C implementations via the shared libraries created

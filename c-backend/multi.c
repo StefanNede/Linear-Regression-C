@@ -77,7 +77,7 @@ DataInputs read_data(void) {
     data_inputs.x_inputs.data = (double*)malloc(n*p*sizeof(double));
     data_inputs.y_inputs.data = (double*)malloc(n*sizeof(double));
 
-    fptr = fopen("data.txt", "r");
+    fptr = fopen("../data/data.txt", "r");
 
     if (fptr != NULL) {
 
@@ -110,269 +110,12 @@ DataInputs read_data(void) {
         }
 
     } else {
-        printf("Not able to open the file: `data.txt`\n");
+        printf("Not able to open the file: `../data/data.txt`\n");
     }
 
     fclose(fptr);
 
     return data_inputs;
-}
-
-// Print out a matrix for debugging purposes
-void print_matrix(Matrix X) {
-    int i, j;
-    printf("PRINTING MATRIX X:\n");
-    for (i = 0; i < X.n; i++) {
-        for (j = 0; j < X.m; j++) {
-            printf("%lf ", X.data[i * X.m + j]);
-        }
-        printf("\n");
-    }
-}
-
-void print_vector(Vector x) {
-    int i;
-    printf("PRINTING VECTOR x:\n");
-    for (i = 0; i < x.size; i++) {
-        printf("%lf ", x.data[i]);
-    }
-    printf("\n");
-}
-
-// Return column i of matrix X
-Vector get_column(Matrix X, int i) {
-    Vector res;
-    int j;
-    res.size = X.n;
-    res.data = (double*)malloc(res.size * sizeof(double));
-    
-    for (j = 0; j < X.n; j++) {
-        res.data[j] = X.data[j * X.m + i];
-    }
-
-    return res;
-}
-
-// Return the magnitude of vector x
-double get_magnitude(Vector x) {
-    int i;
-    double mag = 0.0f;
-
-    for (i = 0; i < x.size; i++) {
-        mag += x.data[i] * x.data[i];
-    }
-    mag = pow(mag, 1.0 / 2.0);
-
-    return mag;
-}
-
-// res = x_T * y
-double multiply_vector_vector(Vector x, Vector y) {
-    double res = 0.0f;
-    int i;
-
-    if (x.size != y.size) {
-        printf("ERROR in dot product of 2 vectors. Dimensions of vector x is %dx1 and of vector y is %dx1\n", x.size, y.size);
-        return 0.0f;
-    }
-
-    for (i = 0; i < x.size; i++) {
-        res += x.data[i] * y.data[i];
-    }
-
-    return res;
-}
-
-// Transpose a matrix 
-Matrix transpose_matrix(Matrix X) {
-    Matrix X_T; int i, j;
-
-    X_T.n = X.m; X_T.m = X.n;
-    X_T.data = (double*)malloc(X_T.n * X_T.m * sizeof(double));
-
-    // data[i][j] = data[j][i]
-    for (i = 0; i < X.n; i++) {
-        for (j = 0; j < X.m; j++) {
-            X_T.data[j * X_T.m + i] = X.data[i * X.m + j];
-        }
-    }
-
-    return X_T;
-}
-
-// Calculate X*y = z
-Vector multiply_matrix_vector(Matrix X, Vector y) {
-    Vector z; int i, j; double res;
-    z.size = X.n;
-    z.data = (double*)malloc(sizeof(double) * X.n);
-
-    if (X.m != y.size) {
-        printf("ERROR in matrix vector multiplication. Dimensions do not match. Trying to multiply %dx%d matrix X with %dx1 vector y\n", X.n, X.m, y.size);
-    }
-
-    for (i = 0; i < z.size; i++) {
-        // multiply row i of X by y
-
-        res = 0;
-        for (j = 0; j < y.size; j++) {
-            // printf("%lf, %lf\n", X.data[i*X.m + j], y.data[j]);
-            res += X.data[i * X.m + j] * y.data[j];
-        }
-
-        z.data[i] = res;
-    }
-
-    return z;
-}
-
-// Returns whether the matrix X is upper triangular (1) or not (0)
-int is_upper_triangular(Matrix *X) {
-    int i, j;
-    for (i = 0; i < X->n; i++) {
-        for (j = 0; j < i; j++) {
-            if (X->data[i*X->m + j] != 0.0f) {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-
-// Solve upper triangular system via back substitution: UT * x = y
-Vector solve_back_sub(Matrix UT, Vector y)  {
-    Vector x; int i,j;
-    x.size = UT.m;
-    x.data = (double*)malloc(sizeof(double)*x.size);
-
-    // Input validation
-    if (UT.n != UT.m) {
-        printf("ERROR in solving upper-triangular system UT*x = y. Dimensions of matrix UT is %dx%d, and it should be square for a consistent system.\n", UT.n, UT.m);
-        return x;
-    }
-
-    if (UT.n != y.size) {
-        printf("ERROR in solving upper-triangular system UT*x = y. Dimensions of matrix UT is %dx%d and of vector y is %dx1\n", UT.n, UT.m, y.size);
-        return x;
-    }
-
-    if (is_upper_triangular(&UT) == 0) {
-        printf("ERROR in solving upper-triangular system UT*x = y. Matrix UT is not upper triangular.\n");
-        return x;
-    }
-
-    // Back substitution
-    for (i = x.size - 1; i >= 0; i--) {
-        double coeff = UT.data[i * UT.m + i];
-        double res = y.data[i];
-
-        // Avoid division by 0 error
-        if (coeff == 0.0f) {
-            printf("BEWARE: in solving upper-triangular system UT*x = y. There exists a 0 on the diagonal of matrix UT, making the system have infinite solutions.\n");
-            continue;
-        }
-        
-        // Substitute discovered values
-        for (j = UT.m-1; j > i; j--) {
-            res -= UT.data[i * UT.m + j] * x.data[j];
-        }
-        res /= coeff;
-        x.data[i] = res;
-    }
-
-    return x;
-}
-
-// I will only use these functionalities in place and so the following sometimes take pass by reference (pointer) fields
-
-// x = x - y
-void subtract_vector_vector_inplace(Vector *x, Vector y) {
-    int i;
-
-    if (x->size != y.size) {
-        printf("ERROR in subtracting 2 vectors. Dimensions of vector x is %dx1 and of vector y is %dx1\n", x->size, y.size);
-        return;
-    }
-
-    for (i = 0; i < x->size; i++) {
-        x->data[i] -= y.data[i];
-    }
-
-    return;
-}
-
-// x = r * x
-void multiply_scalar_vector_inplace(double scalar, Vector *x) {
-    int i;
-
-    for (i = 0; i < x->size; i++) {
-        x->data[i] *= scalar;
-    }
-
-    return;
-}
-
-// X_i = col where i = col_idx
-void copy_column_to_matrix_inplace(Vector col, Matrix *X, int col_idx) {
-    int i;
-
-    if (col.size != X->n) {
-        printf("ERROR in inserting column into matrix. Dimensions of vector is %dx1 and of destination matrix is %dx%d\n", col.size, X->n, X->m);
-        return;
-    }
-
-    for (i = 0; i < col.size; i++) {
-        X->data[i * X->m + col_idx] = col.data[i];
-    }
-
-    return;
-}
-
-// QR factorisation via Classical Gram-Schmidt
-QR QR_factorise(Matrix X) {
-    QR res;
-    double magnitude;
-
-    res.Q.n = X.n;
-    res.Q.m = X.m;
-    res.R.n = X.m;
-    res.R.m = X.m;
-    res.Q.data = (double*)malloc(res.Q.n*res.Q.m*sizeof(double));
-    res.R.data = (double*)malloc(res.R.n*res.R.m*sizeof(double));
-
-    // printf("%d x %d, %d x %d", res.Q.n, res.Q.m, res.R.n, res.R.m);
-
-    int i, j;
-
-    // loop over the columns of X
-    for (i = 0; i < X.m; i++) {
-        // generate corresponding orthonormal column of Q and necessary entries in R
-        Vector X_i = get_column(X, i);
-        Vector Q_i = get_column(X, i); // Q_i = X_i
-
-        for (j = 0; j < i; j++) {
-            Vector Q_j = get_column(res.Q, j);
-            // r_ji = Q_j • X_i
-            double r_ji = multiply_vector_vector(Q_j, X_i);
-            // save r_ji to matrix R
-            res.R.data[j*res.R.m + i] = r_ji;
-
-            // Q_i = Q_i - r_ji * Q_j
-            multiply_scalar_vector_inplace(r_ji, &Q_j);
-            subtract_vector_vector_inplace(&Q_i, Q_j);
-        }
-
-        // Q_i = Q_i / |Q_i|
-        // r_ii = |Q_i|
-        double r_ii = get_magnitude(Q_i);
-        // save r_ii to matrix R
-        res.R.data[i*res.R.m + i] = r_ii;
-
-        multiply_scalar_vector_inplace(1/r_ii, &Q_i);
-        // Move Q_i back into the corresponding column of the Q matrix 
-        copy_column_to_matrix_inplace(Q_i, &res.Q, i);
-    }
-
-    return res;
 }
 
 // Testing the function that solves a consistent square upper triangular system via back substitution
@@ -450,7 +193,7 @@ void print_plane(Vector *coefficients) {
 void save_plane(Vector *coefficients) {
     int i;
     FILE *fptr;
-    fptr = fopen("plane.txt", "w");
+    fptr = fopen("../data/plane.txt", "w");
     for (i = 0; i < coefficients->size-1;i++) {
         fprintf(fptr, "%lf,", coefficients->data[i]);
     }
@@ -459,11 +202,11 @@ void save_plane(Vector *coefficients) {
 }
 
 void multiple_regression(void) {
-    printf("Running Multiple Linear Regression on Input from `data.txt`\n");
+    printf("Running Multiple Linear Regression on Input from `../data/data.txt`\n");
     // testing();
 
     // Loading in data 
-    set_lines_dimensions("data.txt");
+    set_lines_dimensions("../data/data.txt");
     printf("Number of datapoints: %d\n", n);
     printf("Number of dimensions: %d\n", p);
 

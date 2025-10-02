@@ -1,7 +1,11 @@
 main.dSYM/
 multi.dSYM/
 simple.dSYM/
+c-backend/main.dSYM/
+c-backend/multi.dSYM/
+c-backend/simple.dSYM/
 __pycache__/
+app/__pycache__/
 
 # no object files
 *.o

@@ -77,7 +77,7 @@ DataInputs read_data(void) {
     data_inputs.x_inputs.data = (double*)malloc(n*p*sizeof(double));
     data_inputs.y_inputs.data = (double*)malloc(n*sizeof(double));
 
-    fptr = fopen("data.txt", "r");
+    fptr = fopen("../data/data.txt", "r");
 
     if (fptr != NULL) {
 
@@ -110,7 +110,7 @@ DataInputs read_data(void) {
         }
 
     } else {
-        printf("Not able to open the file: `data.txt`\n");
+        printf("Not able to open the file: `../data/data.txt`\n");
     }
 
     fclose(fptr);
@@ -450,7 +450,7 @@ void print_plane(Vector *coefficients) {
 void save_plane(Vector *coefficients) {
     int i;
     FILE *fptr;
-    fptr = fopen("plane.txt", "w");
+    fptr = fopen("../data/plane.txt", "w");
     for (i = 0; i < coefficients->size-1;i++) {
         fprintf(fptr, "%lf,", coefficients->data[i]);
     }
@@ -459,11 +459,11 @@ void save_plane(Vector *coefficients) {
 }
 
 void multiple_regression(void) {
-    printf("Running Multiple Linear Regression on Input from `data.txt`\n");
+    printf("Running Multiple Linear Regression on Input from `../data/data.txt`\n");
     // testing();
 
     // Loading in data 
-    set_lines_dimensions("data.txt");
+    set_lines_dimensions("../data/data.txt");
     printf("Number of datapoints: %d\n", n);
     printf("Number of dimensions: %d\n", p);
 

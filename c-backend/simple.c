@@ -61,7 +61,7 @@ DataInputs read_data(void) {
     data_inputs.x_inputs.data = (double*)malloc(n*sizeof(double));
     data_inputs.y_inputs.data = (double*)malloc(n*sizeof(double));
 
-    fptr = fopen("data.txt", "r");
+    fptr = fopen("../data/data.txt", "r");
 
     if (fptr != NULL) {
         while (fgets(line, sizeof(line), fptr)) {
@@ -75,7 +75,7 @@ DataInputs read_data(void) {
             }
         }
     } else {
-        printf("Not able to open the file: `data.txt`\n");
+        printf("Not able to open the file: `../data/data.txt`\n");
     }
 
     fclose(fptr);
@@ -331,8 +331,8 @@ void plot_results(DataInputs data_inputs, Vector c_m) {
     // Convert to PNG file and save it 
 	size_t length;
 	double *pngdata = ConvertToPNG(&length, canvasReference->image);
-	WriteToFile(pngdata, length, "simple_regression.png");
-    printf("Plot saved to `simple_regression.png`\n");
+	WriteToFile(pngdata, length, "../output/simple_regression.png");
+    printf("Plot saved to `../output/simple_regression.png`\n");
 	DeleteImage(canvasReference->image);
 
     free(padded_x_points);
@@ -340,10 +340,10 @@ void plot_results(DataInputs data_inputs, Vector c_m) {
 }
 
 void simple_regression(void) {
-    printf("Running Simple Linear Regression on Input from `data.txt`\n");
+    printf("Running Simple Linear Regression on Input from `../data/data.txt`\n");
 
     // Loading in data 
-    n = count_lines("data.txt");
+    n = count_lines("../data/data.txt");
     DataInputs data_inputs = read_data();
 
 

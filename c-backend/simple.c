@@ -6,7 +6,6 @@
 #include "simple.h"
 #include "pbPlots.h"
 #include "supportLib.h"
-#include "linalg.h"
 
 #define PLOT_PAD_AMOUNT 2.0
 

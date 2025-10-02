@@ -43,6 +43,7 @@ double multiply_vector_vector(Vector x, Vector y);
 void subtract_vector_vector_inplace(Vector *x, Vector y);
 void multiply_scalar_vector_inplace(double scalar, Vector *x);
 Vector solve_back_sub(Matrix UT, Vector y);
+int is_upper_triangular(Matrix *X);
 
 // Matrix factorisations
 QR QR_factorise(Matrix X);

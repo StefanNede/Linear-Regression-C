@@ -3,7 +3,6 @@
 #include <string.h>
 #include <math.h>
 #include "multi.h"
-#include "linalg.h"
 
 /* TODO: 'for further work' comment
    Note: we are using classical Gram Schmidt here which is potentially numerically unstable 
@@ -117,19 +116,6 @@ DataInputs read_data(void) {
     fclose(fptr);
 
     return data_inputs;
-}
-
-// Returns whether the matrix X is upper triangular (1) or not (0)
-int is_upper_triangular(Matrix *X) {
-    int i, j;
-    for (i = 0; i < X->n; i++) {
-        for (j = 0; j < i; j++) {
-            if (X->data[i*X->m + j] != 0.0f) {
-                return 0;
-            }
-        }
-    }
-    return 1;
 }
 
 // Testing the function that solves a consistent square upper triangular system via back substitution

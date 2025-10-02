@@ -18,7 +18,6 @@ void set_lines_dimensions(char *filename);
 DataInputs read_data(void);
 
 // Debugging
-int is_upper_triangular(Matrix *X);
 void print_plane(Vector *coefficients);
 void save_plane(Vector *coefficients);
 void testing(void);

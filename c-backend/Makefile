@@ -17,10 +17,10 @@ simple.o: simple.c Makefile
 	$(CC) -c simple.c $(CCFLAGS) -o simple.o
 
 multi.o: multi.c Makefile
-	$(CC) multi.c $(CCFLAGS) -o multi.o
+	$(CC) -c multi.c $(CCFLAGS) -o multi.o
 
 linalg.o: linalg.c Makefile
-	$(CC) linalg.c $(CCFLAGS) -o linalg.o
+	$(CC) -c linalg.c $(CCFLAGS) -o linalg.o
 
 # Object files for the shared libraries (Position Independent)
 pbPlots_pic.o: pbPlots.c Makefile
@@ -30,13 +30,13 @@ supportLib_pic.o: supportLib.c Makefile
 	$(CC) -c supportLib.c $(CCFLAGS) $(PICFLAGS) -o supportLib_pic.o
 
 linalg_pic.o: linalg.c Makefile
-	$(CC) linalg.c $(CCFLAGS) $(PICFLAGS) -o linalg_pic.o
+	$(CC) -c linalg.c $(CCFLAGS) $(PICFLAGS) -o linalg_pic.o
 
 simple_pic.o: simple.c Makefile
 	$(CC) -c simple.c $(CCFLAGS) $(PICFLAGS) -o simple_pic.o
 
 multi_pic.o: multi.c Makefile
-	$(CC) multi.c -o multi $(CCFLAGS) $(PICFLAGS) -o multi_pic.o
+	$(CC) -c multi.c $(CCFLAGS) $(PICFLAGS) -o multi_pic.o
 
 # Build targets
 # Original simple executables

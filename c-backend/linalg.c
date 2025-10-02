@@ -1,7 +1,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h> 
+#include <math.h>
 #include "linalg.h"
+
+// Returns whether the matrix X is upper triangular (1) or not (0)
+int is_upper_triangular(Matrix *X) {
+    int i, j;
+    for (i = 0; i < X->n; i++) {
+        for (j = 0; j < i; j++) {
+            if (X->data[i*X->m + j] != 0.0f) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
 
 // Transpose a matrix 
 Matrix transpose_matrix(Matrix X) {

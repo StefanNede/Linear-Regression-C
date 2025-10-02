@@ -1,12 +1,12 @@
 # 3D plotting code as last step in multiple linear regression
 
-from app.utils import read_datapoints, read_plane
+from utils import read_datapoints, read_plane
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Globals + Constants
-DEFAULT_DATAPOINTS_FILE = "data.txt"
-DEFAULT_PLANE_FILE = "plane.txt"
+DEFAULT_DATAPOINTS_FILE = "../data/data.txt"
+DEFAULT_PLANE_FILE = "../data/plane.txt"
 
 def plot_3d(datapoints_file, plane_file):
     """ Plot the 3d regression plane and the datapoints it was based on """
@@ -64,7 +64,7 @@ def plot_3d(datapoints_file, plane_file):
 
     # TODO: make this title nicer
     plt.title(f"3D Plane: {A}x + {B}y - {C}z = -{D}")
-    plt.savefig("multiple_regression.png")
+    plt.savefig("../output/multiple_regression.png")
     plt.show()
 
 if __name__ == "__main__":

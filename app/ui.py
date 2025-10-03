@@ -14,6 +14,20 @@ def save_data_to_csv(csv_data):
         file.write(csv_data)
     print("--- SAVE COMPLETE ---")
 
+def get_plane_string():
+    """ Formats plane equation as a string to be output. """
+    coefficients = []
+    with open(PLANE_FILE, "r") as file:
+        for line in file:
+            line = line.strip()
+            coefficients = [round(float(i),1) for i in line.split(",")]
+
+    plane_string = f"Y = {coefficients[0]}"
+    for i in range(1, len(coefficients)):
+        plane_string += f" + {coefficients[i]}*X_{i}"
+
+    return plane_string
+
 
 # --- MAIN APPLICATION CLASS ---
 
@@ -121,6 +135,8 @@ class App(ctk.CTk):
         
         # Calling backend processing function to get the figure
         is_3d = run_regression()
+        plane_string = get_plane_string()
+        self.log_status(f"Your regression plane is:\n{plane_string}")
         if is_3d:
             fig = plot_3d(DATAPOINTS_FILE, PLANE_FILE)
         else:

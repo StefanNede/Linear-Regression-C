@@ -28,6 +28,11 @@ ___
 * plane.txt -> holds the regression plane generated in the format of coefficients for the plane equation, i.e. if plane Z = C + A*X + B*Y then saved as C,A,B
 
 
+--- 
+## Mathematical Background 
+
+TO COMPLETE
+
 ---
 
 ## How To Use
@@ -98,8 +103,10 @@ There are 3 different ways you can use the repository. You can either...
 
 ### UI
 This is what the base UI looks like:
+<img width="800" height="640" alt="Screenshot 2025-10-03 at 17 54 58" src="https://github.com/user-attachments/assets/c241c43e-3b31-4b74-8cfe-cc0f92adc017" />
+<img width="800" height="640" alt="Screenshot 2025-10-03 at 17 55 34" src="https://github.com/user-attachments/assets/fb66c04b-b9f6-4b7f-99a1-7cde37d3e2ff" />
 
-Check the videos in ... for a demonstration of using the app
+Check the video in `demos>app_demo.mov` for a demonstration of using the app.
 
 ### Simple Linear Regression Plots (2D)
 Running simple linear regression on the data in `data>data_copy_2.txt` returns the following graph with parameters 1.90 and -16.77 (`y = 1.90x + -16.77`):
@@ -130,6 +137,5 @@ On a 10D example (`data>data_copy_6.txt`) we get the plane equation
 ---
 
 ## TODOs
-1. Complete README with UI stuff
-2. Add LaTeX file explaining mathematical background
-3. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)
+1. Add LaTeX file explaining mathematical background
+2. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)

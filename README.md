@@ -2,6 +2,12 @@
 
 A linear regression model that uses OLS (ordinary least squares), the normal equations, and the Gram-Schmidt method for QR factorisation to enable efficient multiple regression (LaTeX file on mathematical background coming soon).
 
+___
+
+## Features
+* **C Library** for both simple and multiple linear regression that you can port into any applications you might have
+* **Python UI** and **3D Interactive Plotting** for a better user experience
+
 ---
 
 ## Requirements
@@ -25,22 +31,35 @@ A linear regression model that uses OLS (ordinary least squares), the normal equ
 ---
 
 ## How To Use
-Write your input points into data/data.txt in a csv format (the dependent variable is the first entry).
-<br/>  
-You can either interface with the C files or use a simpler Python orchestration file.
-<br/>  
-Python UI for easier input of data coming soon ...
+There are 3 different ways you can use the repository. You can either...
+* Interface directly with the C files in the terminal or plug them into your own code (shared libraries generated)
+* Use a simple Python orchestration file, still staying in the terminal but getting 3D plots
+* Use a comprehensive Python app with a proper UI
 
-### UI - TO COMPLETE
 
-### Python Orchestration
+### UI 
 1. Run the following in the terminal to compile the C backend shared libraries:
    ```bash
    cd c-backend
    make all
    cd ..
    ```
-2. Run the following in the terminal to run linear regression on your data:
+2. Run the following in the terminal to start the Python app
+   ```bash
+   cd app
+   python3 ui.py
+   ```
+3. Interface with the easy-to-use UI (check demo video further down for example)
+
+### Python Orchestration
+1. Write your input points into data/data.txt in a csv format (the dependent variable is the first entry)
+2. Run the following in the terminal to compile the C backend shared libraries:
+   ```bash
+   cd c-backend
+   make all
+   cd ..
+   ```
+3. Run the following in the terminal to run linear regression on your data:
    ```bash
    cd app
    python3 main.py
@@ -48,7 +67,8 @@ Python UI for easier input of data coming soon ...
    3D plots will be immediately shown and saved in `data/multiple_regression.png`; 2D plots will be saved in `data/simple_regression.png`
 
 ### Simple Regression
-1. Run the following in the terminal:
+1. Write your input points into data/data.txt in a csv format (the dependent variable is the first entry)
+2. Run the following in the terminal:
    ```bash
    cd c-backend
    make simple
@@ -57,7 +77,8 @@ Python UI for easier input of data coming soon ...
    The equation for the line of best fit will be output in the terminal, and the graph (graphed in C) will be saved to `simple_regression.png`.
 
 ### Multiple Regression
-1. Run the following in the terminal:
+1. Write your input points into data/data.txt in a csv format (the dependent variable is the first entry)
+2. Run the following in the terminal:
    ```bash
    cd c-backend
    make multi
@@ -73,7 +94,12 @@ Python UI for easier input of data coming soon ...
 
 ---
 
-## Examples - TO COMPLETE WITH UI
+## Examples 
+
+### UI
+This is what the base UI looks like:
+
+Check the videos in ... for a demonstration of using the app
 
 ### Simple Linear Regression Plots (2D)
 Running simple linear regression on the data in `data>data_copy_2.txt` returns the following graph with parameters 1.90 and -16.77 (`y = 1.90x + -16.77`):

@@ -10,11 +10,10 @@ PLANE_FILE = "../data/plane.txt"
 CUR_DIR = os.getcwd()
 SIMPLE_SO_FILE = f"{CUR_DIR}/../c-backend/simple_export.so"
 MULTIPLE_SO_FILE = f"{CUR_DIR}/../c-backend/multi_export.so"
-is_3d = False # flag to indicate whether regression is in 3D
 
 # Use the efficient C implementations via the shared libraries created
 def run_regression():
-    global is_3d
+    is_3d = False # flag to indicate whether regression is in 3D
 
     simple_regression_functions = CDLL(SIMPLE_SO_FILE)
     multiple_regression_functions = CDLL(MULTIPLE_SO_FILE)
@@ -31,7 +30,9 @@ def run_regression():
 
     multiple_regression_functions.multiple_regression()
 
+    return is_3d
+
 if __name__ == "__main__":
-    run_regression()
+    is_3d = run_regression()
     if is_3d:
         plot_3d(DATAPOINTS_FILE, PLANE_FILE)

@@ -222,6 +222,14 @@ void plot_results(DataInputs data_inputs, Vector c_m) {
     free(padded_y_points);
 }
 
+// Save coefficients m and c to plane.txt
+void save_line(double m, double c) {
+    FILE *fptr;
+    fptr = fopen("../data/plane.txt", "w");
+    fprintf(fptr,"%lf,%lf", c, m);
+    fclose(fptr);
+}
+
 void simple_regression(void) {
     printf("Running Simple Linear Regression on Input from `../data/data.txt`\n");
 
@@ -243,6 +251,7 @@ void simple_regression(void) {
     // Printing in y = mx + c format, rounding coefficients to 2dp
     printf("Your regression line equation is:\n");
     printf("y = %.2fx + %.2f\n", res.data[1], res.data[0]);
+    save_line(res.data[1], res.data[0]);
     plot_results(data_inputs, res);
 
     // Free used memory

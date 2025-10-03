@@ -65,7 +65,9 @@ def plot_3d(datapoints_file, plane_file):
     # TODO: make this title nicer
     plt.title(f"3D Plane: {A}x + {B}y - {C}z = -{D}")
     plt.savefig("../output/multiple_regression.png")
-    plt.show()
+
+    return fig
 
 if __name__ == "__main__":
-    plot_3d(DEFAULT_DATAPOINTS_FILE, DEFAULT_PLANE_FILE)
+    fig = plot_3d(DEFAULT_DATAPOINTS_FILE, DEFAULT_PLANE_FILE)
+    plt.show()

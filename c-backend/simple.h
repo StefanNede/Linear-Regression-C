@@ -20,5 +20,6 @@ DataInputs read_data(void);
 Matrix gen_X(Vector x_values);
 Vector get_min_max(double *data_values, int length);
 
+void save_line(double m, double c);
 void plot_results(DataInputs data_inputs, Vector c_m);
 void simple_regression(void);

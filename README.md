@@ -7,14 +7,14 @@ A linear regression model that uses OLS (ordinary least squares), the normal equ
 ## Requirements
 
 * **Base** - simply a **C compiler** (all implementations of linear algebra operations and graphing have been implemented from scratch)!
-* **Advanced Plotting** - If you want 3d plotting then you need **python3**, with packages numpy and matplotlib:
+* **Advanced Plotting / Interactive UI** - If you want 3d plotting then you need **python3**, with packages numpy, matplotlib, and customtkinter:
   ```bash
   pip install -r requirements.txt
   ```
 
 ---
 
-## File Structure
+## File Structure - TO FIX
 
 * simple.c -> runs simple linear regression on 2 variables
 * multi.c -> runs multiple linear regression on >2 variables
@@ -30,6 +30,8 @@ Write your input points into data/data.txt in a csv format (the dependent variab
 You can either interface with the C files or use a simpler Python orchestration file.
 <br/>  
 Python UI for easier input of data coming soon ...
+
+### UI - TO COMPLETE
 
 ### Python Orchestration
 1. Run the following in the terminal to compile the C backend shared libraries:
@@ -71,7 +73,7 @@ Python UI for easier input of data coming soon ...
 
 ---
 
-## Examples
+## Examples - TO COMPLETE WITH UI
 
 ### Simple Linear Regression Plots (2D)
 Running simple linear regression on the data in `data>data_copy_2.txt` returns the following graph with parameters 1.90 and -16.77 (`y = 1.90x + -16.77`):
@@ -102,6 +104,6 @@ On a 10D example (`data>data_copy_6.txt`) we get the plane equation
 ---
 
 ## TODOs
-1. Add UI
+1. Complete README with UI stuff
 2. Add LaTeX file explaining mathematical background
 3. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)

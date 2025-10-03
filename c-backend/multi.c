@@ -207,12 +207,12 @@ void multiple_regression(void) {
 
     // Loading in data 
     set_lines_dimensions("../data/data.txt");
-    printf("Number of datapoints: %d\n", n);
-    printf("Number of dimensions: %d\n", p);
+    // printf("Number of datapoints: %d\n", n);
+    // printf("Number of dimensions: %d\n", p);
 
     // Matrix X = data_inputs.x_inputs
     DataInputs data_inputs = read_data();
-    print_matrix(data_inputs.x_inputs);
+    // print_matrix(data_inputs.x_inputs);
     
     // PERFORM QR FACTORISATION OF X ===========
     QR qr = QR_factorise(data_inputs.x_inputs);

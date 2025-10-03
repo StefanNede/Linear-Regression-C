@@ -2,8 +2,6 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from main import run_regression, plot_3d
 
 import customtkinter as ctk
-import numpy as np
-import time
 
 DATAPOINTS_FILE = "../data/data.txt"
 PLANE_FILE = "../data/plane.txt"

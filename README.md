@@ -31,7 +31,22 @@ ___
 --- 
 ## Mathematical Background 
 
-TO COMPLETE
+I will develop a LaTeX file going over the in-depth mathematics for the project soon, but in the meantime...
+
+<br/>  
+
+Here are some resources for further reading:
+- Ordinary Least Squares:
+  - [Wikipedia: Ordinary Least Squares](https://en.wikipedia.org/wiki/Ordinary_least_squares)
+  - [Built In: OLS Regression](https://builtin.com/data-science/ols-regression)
+
+- QR Factorisation:
+  - [Wikipedia: QR Decomposition](https://en.wikipedia.org/wiki/QR_decomposition)
+  - [DataCamp: QR Decomposition in Machine Learning](https://www.datacamp.com/tutorial/qr-decomposition)
+
+- Gram-Schmidt Process:
+  - [Wikipedia: Gram-Schmidt process](https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process)
+  - [RPubs: QR Decomposition with Gram-Schmidt](https://rpubs.com/aaronsc32/qr-decomposition-gram-schmidt)
 
 ---
 
@@ -136,6 +151,6 @@ On a 10D example (`data>data_copy_6.txt`) we get the plane equation
 
 ---
 
-## TODOs
-1. Add LaTeX file explaining mathematical background
-2. Implement numerically stable method for QR factorisation (modified Gram-Schmidt for example)
+## Coming Soon...
+1. LaTeX file explaining mathematical background
+2. A more numerically stable method for QR factorisation (modified Gram-Schmidt for example)

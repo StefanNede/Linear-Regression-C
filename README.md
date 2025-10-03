@@ -20,13 +20,33 @@ ___
 
 ---
 
-## File Structure - TO FIX
+## File Structure
 
-* simple.c -> runs simple linear regression on 2 variables
-* multi.c -> runs multiple linear regression on >2 variables
-* data.txt -> holds the data that we will run linear regression where each new line is a new point in the format of `x,y,z,...` (make sure no new line on the last line) -> the first value in each line is the dependent variable, and the rest are the explanatory ones
-* plane.txt -> holds the regression plane generated in the format of coefficients for the plane equation, i.e. if plane Z = C + A*X + B*Y then saved as C,A,B
-
+```code
+├── 📁 data/
+│   ├── 📝 data.txt          # Holds the data regression will be run on in CSV format (dependent variable first).
+│   └── 📝 plane.txt         # Holds the regression plane coefficients.
+│
+├── 📁 app/
+│   ├── 🐍 main.py           # For interfacing with the regression model through Python in the terminal.
+│   ├── 🐍 plot3d.py         # Handles 3D plotting for multiple regression.
+│   ├── 🐍 ui.py             # For interfacing with the regression model through an interactive app.
+│   └── 🐍 utils.py          # Utility functions for the Python app.
+│
+└── 📁 c-backend/
+    ├── Makefile            # Build script for compiling the C backend.
+    ├── C linalg.c          # C implementation of linear algebra functions.
+    ├── H linalg.h          # Header for linear algebra functions.
+    ├── C main.c            # Main entry point for the C backend logic.
+    ├── C multi.c           # Functions for multiple linear regression.
+    ├── H multi.h           # Header for multiple linear regression.
+    ├── C pbPlots.c         # Plotting functions for a 2D plotting library.
+    ├── H pbPlots.h         # Header for plotting functions.
+    ├── C simple.c          # Functions for simple linear regression.
+    ├── H simple.h          # Header for simple linear regression.
+    ├── C supportLib.c      # Supporting library functions for plotting library.
+    └── H supportLib.h      # Header for the support library.
+```
 
 --- 
 ## Mathematical Background 
@@ -72,7 +92,7 @@ There are 3 different ways you can use the repository. You can either...
 3. Interface with the easy-to-use UI (check demo video further down for example)
 
 ### Python Orchestration
-1. Write your input points into data/data.txt in a csv format (the dependent variable is the first entry)
+1. Write your input points into `data/data.txt` in a csv format (the dependent variable is the first entry)
 2. Run the following in the terminal to compile the C backend shared libraries:
    ```bash
    cd c-backend
@@ -87,7 +107,7 @@ There are 3 different ways you can use the repository. You can either...
    3D plots will be immediately shown and saved in `data/multiple_regression.png`; 2D plots will be saved in `data/simple_regression.png`
 
 ### Simple Regression
-1. Write your input points into data/data.txt in a csv format (the dependent variable is the first entry)
+1. Write your input points into `data/data.txt` in a csv format (the dependent variable is the first entry)
 2. Run the following in the terminal:
    ```bash
    cd c-backend
@@ -97,7 +117,7 @@ There are 3 different ways you can use the repository. You can either...
    The equation for the line of best fit will be output in the terminal, and the graph (graphed in C) will be saved to `simple_regression.png`.
 
 ### Multiple Regression
-1. Write your input points into data/data.txt in a csv format (the dependent variable is the first entry)
+1. Write your input points into `data/data.txt` in a csv format (the dependent variable is the first entry)
 2. Run the following in the terminal:
    ```bash
    cd c-backend

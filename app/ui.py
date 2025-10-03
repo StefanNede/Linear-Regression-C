@@ -8,33 +8,14 @@ import time
 DATAPOINTS_FILE = "../data/data.txt"
 PLANE_FILE = "../data/plane.txt"
 
-# --- MOCK BACKEND FUNCTIONS ---
-# You can replace these with your actual Python functions.
-
 def save_data_to_csv(csv_data):
-    """ save data to DATAFILE_DIR """
+    """ Save data to DATAFILE_DIR """
     print("--- SAVING DATA ---")
     # print(f"Data received:\n{csv_data}")
     with open(DATAPOINTS_FILE, "w") as file:
         file.write(csv_data)
     print("--- SAVE COMPLETE ---")
 
-
-def process_data_and_create_figure():
-    """
-    Placeholder function to simulate your data processing.
-    In your real app, this function would read the CSV, run processing,
-    and return the data points for the graph.
-    """
-    print("--- SIMULATING PROCESSING ---")
-    # Simulating a delay for processing
-    time.sleep(1.5)
-    
-    # Generate random 3D data for demonstration purposes
-    # Replace this with loading and processing your actual data
-    points = np.random.rand(50, 3) * 100
-    print("--- PROCESSING COMPLETE ---")
-    return points
 
 # --- MAIN APPLICATION CLASS ---
 
@@ -70,7 +51,7 @@ class App(ctk.CTk):
         self.create_graph_widget()
 
     def create_control_widgets(self):
-        """Creates all the widgets for the left control panel."""
+        """ Creates all the widgets for the left control panel """
         self.controls_frame.grid_columnconfigure(0, weight=1)
         
         title_label = ctk.CTkLabel(self.controls_frame, text="Controls", font=ctk.CTkFont(size=20, weight="bold"))
@@ -82,7 +63,14 @@ class App(ctk.CTk):
         
         self.data_input = ctk.CTkTextbox(self.controls_frame, height=150)
         self.data_input.grid(row=2, column=0, padx=20, pady=5, sticky="ew")
-        self.data_input.insert("1.0", "10.5,25.1,80.3\n12.8,28.4,85.7\n")
+        placeholder_data = """Input your data here in a CSV format (with no spaces at all). Note that the dependent variable should come first followed by the explanatory ones. 
+
+        For example:
+
+            10.5,25.1,80.3
+            12.8,28.4,85.7
+        """
+        self.data_input.insert("1.0", placeholder_data)
 
         # Buttons
         self.add_data_btn = ctk.CTkButton(self.controls_frame, text="Add Data (to CSV)", command=self.add_data_action)
@@ -125,7 +113,7 @@ class App(ctk.CTk):
             return
 
         self.log_status("Saving data...")
-        save_data_to_csv(data) # Call your backend function
+        save_data_to_csv(data) # Save to data.txt
         self.log_status("Data saved successfully.")
         self.data_input.delete("1.0", ctk.END) # Clear the input box
     
